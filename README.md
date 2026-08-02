@@ -33,7 +33,41 @@ pnpm build
 # 本地测试(fongmi 直连 http://10.0.2.2:8899/tvbox.json)
 pnpm build:local
 pnpm serve
+
+# 冒烟测试(契约 + 依赖可达性)
+pnpm smoke
+
+# CI 版(输出 smoke.json)
+pnpm smoke:ci
 ```
+
+## 🔬 冒烟测试
+
+`scripts/smoke.mjs` 干两件事：
+
+1. **契约检查**：import 每个 `sites/*/spider.js`，验证 `__jsEvalReturn()` 返回的 API 有 9 个必需方法（`init/home/homeVod/category/detail/play/search/isVideoFormat/manualVideoCheck`）
+2. **依赖可达性**：从 `meta.json` 的 `probes` 数组（或源码里 grep）拿出 http(s) URL，逐个 HEAD 探活
+
+输出 `smoke.json`（GH Pages 上 `docs/` 展示）。
+
+**给站点写探针**（`meta.json`）：
+
+```json
+{
+  "probes": [
+    "https://xxx.com/api/status"
+  ]
+}
+```
+
+不写的话会退化到源码 grep，可能包含 spider 不实际用的 URL。
+
+## 🏗️ CI
+
+两个 workflow：
+
+- `build.yml` — push 时跑 build + smoke，重新生成 `tvbox.json`
+- `smoke.yml` — 每 6 小时定时探活，只更新 `smoke.json`
 
 ## 📂 目录结构
 

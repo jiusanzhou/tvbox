@@ -1,0 +1,42 @@
+{
+  "generated_at": "2026-08-02T14:34:34.755Z",
+  "results": [
+    {
+      "key": "aiyifan",
+      "name": "🎬 爱壹帆",
+      "ok": true,
+      "checks": {
+        "contract": true,
+        "hosts": {
+          "https://www.aiyifan.tv/": {
+            "code": 200,
+            "ms": 571,
+            "ok": true
+          }
+        }
+      },
+      "errors": []
+    },
+    {
+      "key": "ddys",
+      "name": "🎞 低端影视",
+      "ok": true,
+      "checks": {
+        "contract": true,
+        "hosts": {
+          "https://ddys.lat/data/manifest.json": {
+            "code": 200,
+            "ms": 1069,
+            "ok": true
+          },
+          "https://ddys.lat/data/list.json": {
+            "code": 200,
+            "ms": 7929,
+            "ok": true
+          }
+        }
+      },
+      "errors": []
+    }
+  ]
+}

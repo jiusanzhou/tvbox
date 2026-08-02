@@ -6,7 +6,17 @@
   "searchable": 1,
   "quickSearch": 1,
   "filterable": 1,
-  "categories": ["电影", "剧集", "综艺", "动漫", "短剧", "纪录片"],
+  "categories": [
+    "电影",
+    "剧集",
+    "综艺",
+    "动漫",
+    "短剧",
+    "纪录片"
+  ],
   "source": "https://www.aiyifan.tv",
-  "note": "API 型 spider, cert+timestamp 双模签名, CDN warmup, 支持翻页+选集"
+  "note": "API 型 spider, cert+timestamp 双模签名, CDN warmup, 支持翻页+选集",
+  "probes": [
+    "https://www.aiyifan.tv/"
+  ]
 }

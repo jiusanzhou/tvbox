@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tvbox 订阅面板</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #161b22;
+      --border: #30363d;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --ok: #3fb950;
+      --warn: #d29922;
+      --err: #f85149;
+      --link: #58a6ff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 24px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: var(--bg); color: var(--text);
+      max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    h1 { margin: 0 0 8px; font-size: 24px; }
+    .sub { color: var(--muted); margin-bottom: 24px; font-size: 14px; }
+    .sub code { background: var(--panel); padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+    .panel {
+      background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+      padding: 16px; margin-bottom: 16px;
+    }
+    .url-box {
+      display: flex; align-items: center; gap: 8px;
+      background: #0d1117; border: 1px solid var(--border);
+      border-radius: 6px; padding: 10px 12px; font-family: ui-monospace, monospace;
+      font-size: 13px; overflow-x: auto;
+    }
+    .url-box input {
+      flex: 1; background: transparent; border: 0; color: var(--text);
+      font: inherit; outline: none;
+    }
+    button {
+      background: #21262d; border: 1px solid var(--border); color: var(--text);
+      padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 13px;
+    }
+    button:hover { background: #30363d; }
+    button.primary { background: #238636; border-color: #2ea043; }
+    button.primary:hover { background: #2ea043; }
+    .sites { display: grid; gap: 12px; }
+    .site {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: center;
+      padding: 12px; background: #0d1117; border: 1px solid var(--border); border-radius: 6px;
+    }
+    .site .name { font-weight: 600; }
+    .site .meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+    .badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px;
+      font-size: 11px; font-weight: 500;
+    }
+    .badge.ok { background: rgba(63,185,80,.15); color: var(--ok); }
+    .badge.warn { background: rgba(210,153,34,.15); color: var(--warn); }
+    .badge.err { background: rgba(248,81,73,.15); color: var(--err); }
+    .badge.gray { background: rgba(139,148,158,.15); color: var(--muted); }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    #qrcode { text-align: center; margin-top: 12px; }
+    #qrcode canvas { border-radius: 6px; }
+    .footer { text-align: center; color: var(--muted); font-size: 12px; margin-top: 32px; }
+    .status-line { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+  <h1>📺 tvbox 订阅</h1>
+  <div class="sub">
+    个人聚合的 FongMi / TVBox 订阅 · 
+    <a href="https://github.com/jiusanzhou/tvbox">github.com/jiusanzhou/tvbox</a>
+  </div>
+
+  <div class="panel">
+    <div style="font-weight:600; margin-bottom:8px;">📥 订阅 URL</div>
+    <div class="url-box">
+      <input id="subUrl" value="https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json" readonly />
+      <button onclick="copyUrl()">复制</button>
+    </div>
+    <div class="status-line">
+      <span>备用: <a href="https://raw.githubusercontent.com/jiusanzhou/tvbox/main/tvbox.json">raw.github</a> · 
+      <a href="https://fastly.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json">fastly</a> · 
+      <a href="https://gcore.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json">gcore</a></span>
+    </div>
+    <div id="qrcode"></div>
+  </div>
+
+  <div class="panel">
+    <div style="font-weight:600; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;">
+      <span>🎬 收录站源 <span id="siteCount" class="badge gray"></span></span>
+      <span id="genAt" style="font-size:11px; color:var(--muted);"></span>
+    </div>
+    <div id="sites" class="sites">加载中…</div>
+  </div>
+
+  <div class="footer">
+    数据源: <code>tvbox.json</code> + <code>smoke.json</code> · 
+    自动更新 by GitHub Actions
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <script>
+    const SUB_URL = 'https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json';
+    const TVBOX_URL = './tvbox.json';   // 用同 repo 的相对路径(Pages 部署时)
+    const SMOKE_URL = './smoke.json';
+
+    function copyUrl() {
+      const el = document.getElementById('subUrl');
+      el.select();
+      navigator.clipboard.writeText(el.value).then(() => {
+        const btn = event.target;
+        const old = btn.textContent;
+        btn.textContent = '✓ 已复制';
+        btn.classList.add('primary');
+        setTimeout(() => { btn.textContent = old; btn.classList.remove('primary'); }, 1500);
+      });
+    }
+
+    // 二维码
+    if (window.QRCode) {
+      const canvas = document.createElement('canvas');
+      document.getElementById('qrcode').appendChild(canvas);
+      QRCode.toCanvas(canvas, SUB_URL, { width: 160, margin: 2, color: { dark: '#c9d1d9', light: '#0d1117' } });
+    }
+
+    (async function () {
+      let tvbox, smoke;
+      try {
+        [tvbox, smoke] = await Promise.all([
+          fetch(TVBOX_URL).then(r => r.json()),
+          fetch(SMOKE_URL).then(r => r.ok ? r.json() : null).catch(() => null),
+        ]);
+      } catch (e) {
+        document.getElementById('sites').textContent = '❌ 加载失败: ' + e.message;
+        return;
+      }
+
+      const meta = tvbox._meta || {};
+      const smokeMap = {};
+      if (smoke && Array.isArray(smoke.results)) {
+        // smoke 用目录名做 key, tvbox.json 用 meta.key. 加个 name 兜底匹配
+        for (const r of smoke.results) {
+          smokeMap[r.key] = r;
+          if (r.name) smokeMap[r.name] = r;
+        }
+      }
+
+      document.getElementById('siteCount').textContent = (tvbox.sites || []).length + ' 站';
+      if (meta.generated_at) {
+        const ago = timeAgo(new Date(meta.generated_at));
+        document.getElementById('genAt').textContent = 
+          `commit ${meta.commit || '?'} · 构建于 ${ago}` +
+          (smoke && smoke.generated_at ? ` · 探活 ${timeAgo(new Date(smoke.generated_at))}` : '');
+      }
+
+      const html = (tvbox.sites || []).map(s => {
+        // 匹配顺序: 精确 key → 去 _api 后缀 → name
+        const r = smokeMap[s.key] || smokeMap[s.key.replace(/_api$/, '')] || smokeMap[s.name];
+        const badge = r
+          ? (r.ok ? '<span class="badge ok">健康</span>' : '<span class="badge err">异常</span>')
+          : '<span class="badge gray">未探活</span>';
+        const errors = r && r.errors && r.errors.length
+          ? `<div style="color:var(--err); font-size:11px; margin-top:4px;">${r.errors.map(escapeHtml).join(' · ')}</div>`
+          : '';
+        return `
+          <div class="site">
+            <div style="font-size:24px;">${(s.name.match(/^\p{Extended_Pictographic}/u) || ['📺'])[0]}</div>
+            <div>
+              <div class="name">${escapeHtml(s.name.replace(/^\p{Extended_Pictographic}\s*/u, ''))}</div>
+              <div class="meta"><code>${s.key}</code> · type ${s.type} · ${s.searchable ? '可搜' : '不可搜'}${s.filterable ? ' · 可筛' : ''}</div>
+              ${errors}
+            </div>
+            <div>${badge}</div>
+          </div>
+        `;
+      }).join('');
+      document.getElementById('sites').innerHTML = html || '(无 site)';
+    })();
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'})[c]);
+    }
+    function timeAgo(d) {
+      const s = Math.floor((Date.now() - d) / 1000);
+      if (s < 60) return s + '秒前';
+      if (s < 3600) return Math.floor(s/60) + '分钟前';
+      if (s < 86400) return Math.floor(s/3600) + '小时前';
+      return Math.floor(s/86400) + '天前';
+    }
+  </script>
+</body>
+</html>

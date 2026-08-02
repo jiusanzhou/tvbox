@@ -6,7 +6,17 @@
   "searchable": 1,
   "quickSearch": 1,
   "filterable": 0,
-  "categories": ["电影", "剧集", "动漫", "综艺", "纪录片"],
+  "categories": [
+    "电影",
+    "剧集",
+    "动漫",
+    "综艺",
+    "纪录片"
+  ],
   "source": "https://ddys.lat",
-  "note": "静态镜像 spider, 数据源 ddys.lat/data/*.json, 无签名/无验证码, m3u8 直播"
+  "note": "静态镜像 spider, 数据源 ddys.lat/data/*.json, 无签名/无验证码, m3u8 直播",
+  "probes": [
+    "https://ddys.lat/data/manifest.json",
+    "https://ddys.lat/data/list.json"
+  ]
 }

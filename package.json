@@ -9,6 +9,8 @@
     "build:local": "node scripts/build.mjs --base=local",
     "build:raw": "node scripts/build.mjs --base=raw",
     "validate": "node scripts/validate.mjs",
+    "smoke": "node --experimental-loader ./scripts/loader.mjs scripts/smoke.mjs",
+    "smoke:ci": "node --experimental-loader ./scripts/loader.mjs scripts/smoke.mjs --json=smoke.json",
     "sync": "node scripts/sync-from-ext.mjs",
     "serve": "python3 -m http.server 8899"
   }

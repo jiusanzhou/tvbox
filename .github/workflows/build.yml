@@ -27,15 +27,27 @@ jobs:
       - name: Validate & Build
         run: node scripts/build.mjs
 
+      - name: Smoke test (契约检查 + 依赖可达性)
+        # 探活失败不阻塞发布 (spider 契约不通才该 fail, 但那已经在 build 里 catch 过)
+        # 只当"CI 提示"
+        run: node --experimental-loader ./scripts/loader.mjs scripts/smoke.mjs --json=smoke.json || true
+
+      - name: Sync tvbox.json + smoke.json 到 docs/ (给 GH Pages 展示)
+        run: |
+          mkdir -p docs
+          cp -f tvbox.json docs/tvbox.json
+          [ -f smoke.json ] && cp -f smoke.json docs/smoke.json || true
+
       - name: Commit tvbox.json if changed
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          if git diff --quiet tvbox.json; then
-            echo "tvbox.json 无变化"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # tvbox.json + docs 一起 add
+          git add tvbox.json docs/tvbox.json docs/smoke.json 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "无变化"
           else
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add tvbox.json
             git commit -m "chore: rebuild tvbox.json [skip ci]"
             git push
           fi

@@ -1,0 +1,55 @@
+name: Health Check
+
+on:
+  schedule:
+    # 每 6 小时探活一次 (UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'sites/**/spider.js'
+      - 'sites/**/meta.json'
+      - 'scripts/smoke.mjs'
+      - 'scripts/loader.mjs'
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run smoke tests
+        # 允许 fail: 探活是"记录状态", 不是"gate 部署"
+        run: node --experimental-loader ./scripts/loader.mjs scripts/smoke.mjs --json=smoke.json || true
+
+      - name: Commit smoke.json if changed
+        run: |
+          if [ ! -f smoke.json ]; then
+            echo "smoke.json 未生成, 退出"
+            exit 0
+          fi
+          # 同步到 docs/ 让 GH Pages 能读
+          mkdir -p docs && cp -f smoke.json docs/smoke.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add smoke.json docs/smoke.json
+          if git diff --cached --quiet 2>/dev/null; then
+            echo "无变化"
+          else
+            git commit -m "chore(smoke): 探活报告 [skip ci]" || echo "无变化"
+            git push || echo "push 失败(可能并发, 下次再跑)"
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report
+          path: smoke.json
+          retention-days: 30

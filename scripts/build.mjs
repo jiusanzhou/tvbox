@@ -9,10 +9,25 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
+import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
+
+// 拿 git commit 短 hash (CI/本地都能跑)
+function gitShort() {
+  try {
+    return execSync('git rev-parse --short HEAD', { cwd: ROOT }).toString().trim();
+  } catch {
+    return 'dev';
+  }
+}
+function fileHash(p) {
+  const buf = fs.readFileSync(p);
+  return crypto.createHash('sha256').update(buf).digest('hex').slice(0, 8);
+}
 
 // ---------- CLI ----------
 const args = Object.fromEntries(
@@ -62,6 +77,7 @@ if (dirs.length === 0) {
 const tagFilter = args.tag ? String(args.tag).split(',') : null;
 
 const sites = [];
+const siteMeta = []; // 只给 _meta 用，不进 sites[]
 for (const d of dirs) {
   const meta = JSON.parse(fs.readFileSync(path.join(sitesDir, d, 'meta.json'), 'utf-8'));
 
@@ -92,6 +108,12 @@ for (const d of dirs) {
     ...(meta.ext ? { ext: meta.ext } : {}),
     ...(meta.categories ? { categories: meta.categories } : {}),
   });
+  siteMeta.push({
+    key: meta.key,
+    hash: fileHash(spiderPath),
+    tags: meta.tags || [],
+    updated_at: fs.statSync(spiderPath).mtime.toISOString(),
+  });
 }
 
 // ---------- 拼配置 ----------
@@ -99,6 +121,16 @@ const parses = JSON.parse(fs.readFileSync(path.join(ROOT, 'shared/parses.json'),
 const lives = JSON.parse(fs.readFileSync(path.join(ROOT, 'shared/lives.json'), 'utf-8'));
 
 const cfg = {
+  // fongmi/tvbox 不认的字段, 但 GH Pages / 前端 dashboard 能读
+  _meta: {
+    repo: REPO,
+    branch: BRANCH,
+    base: BASE_MODE,
+    commit: gitShort(),
+    generated_at: new Date().toISOString(),
+    site_count: sites.length,
+    sites: siteMeta,
+  },
   spider: '',
   wallpaper: 'https://picsum.photos/1920/1080',
   sites,
