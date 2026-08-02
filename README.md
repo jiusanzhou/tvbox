@@ -19,6 +19,7 @@ https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json
 | Key | 名字 | 类型 | 说明 |
 |---|---|---|---|
 | `aiyifan_api` | 🎬 爱壹帆 | API 型 spider | 全签名 + CDN warmup + 分页/选集 |
+| `ddys` | 🎞 低端影视 | 静态镜像 spider | 数据源 `ddys.lat/data/*.json`，无签名/无验证码，m3u8 直播 |
 
 ## 🛠️ 本地开发
 
