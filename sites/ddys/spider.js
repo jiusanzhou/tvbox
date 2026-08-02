@@ -263,13 +263,20 @@ function play(flag, id, flags) {
   });
 }
 
-// 兼容 fongmi/OK影视 CatVod 期望的函数签名
-function categoryContent(tid, pg, filter, extend) { return category(tid, pg, filter, extend); }
-function detailContent(ids) { return detail(ids); }
-function searchContent(wd, quick) { return search(wd, quick); }
-function playerContent(flag, id, flags) { return play(flag, id, flags); }
-function homeContent(filter) { return home(filter); }
-function homeVideoContent() { return homeVod(); }
+function isVideoFormat(url) { return /\.(m3u8|mp4|flv|mkv|ts)(\?|$)/i.test(url); }
+function manualVideoCheck() { return false; }
 
-// 抛给 CatVod
-function __jsEvalReturn() { return {}; }
+// fongmi/CatVod 入口 — 必须 export __jsEvalReturn 返回 API 对象
+export function __jsEvalReturn() {
+  return {
+    init: init,
+    home: home,
+    homeVod: homeVod,
+    category: category,
+    detail: detail,
+    play: play,
+    search: search,
+    isVideoFormat: isVideoFormat,
+    manualVideoCheck: manualVideoCheck,
+  };
+}
