@@ -1,0 +1,48 @@
+name: Build & Validate
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sites/**'
+      - 'shared/**'
+      - 'scripts/**'
+      - '.github/workflows/build.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Validate & Build
+        run: node scripts/build.mjs
+
+      - name: Commit tvbox.json if changed
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          if git diff --quiet tvbox.json; then
+            echo "tvbox.json 无变化"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add tvbox.json
+            git commit -m "chore: rebuild tvbox.json [skip ci]"
+            git push
+          fi
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tvbox-config
+          path: tvbox.json
+          retention-days: 30

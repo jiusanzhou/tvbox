@@ -1,0 +1,15 @@
+{
+  "name": "tvbox",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TVBox 配置聚合器: 多 site 合并成一个入口",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:local": "node scripts/build.mjs --base=local",
+    "build:raw": "node scripts/build.mjs --base=raw",
+    "validate": "node scripts/validate.mjs",
+    "sync": "node scripts/sync-from-ext.mjs",
+    "serve": "python3 -m http.server 8899"
+  }
+}

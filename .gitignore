@@ -1,0 +1,6 @@
+node_modules/
+.DS_Store
+/tvbox-*.json
+!/tvbox.json
+/tmp/
+*.log
