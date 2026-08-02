@@ -18,6 +18,22 @@
         "短剧",
         "纪录片"
       ]
+    },
+    {
+      "key": "ddys",
+      "name": "🎞 低端影视",
+      "type": 3,
+      "api": "https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/sites/ddys/spider.js",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 0,
+      "categories": [
+        "电影",
+        "剧集",
+        "动漫",
+        "综艺",
+        "纪录片"
+      ]
     }
   ],
   "parses": [
