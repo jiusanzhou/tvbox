@@ -39,13 +39,14 @@ const args = Object.fromEntries(
 
 const REPO = process.env.TVBOX_REPO || 'jiusanzhou/tvbox';
 const BRANCH = process.env.TVBOX_BRANCH || 'main';
-const BASE_MODE = args.base || 'jsdelivr';
+const BASE_MODE = args.base || 'pages';
 
 // local 默认用 emulator 反向映射地址 10.0.2.2 (真机换 --host)
 const LOCAL_HOST = args.host || 'http://10.0.2.2:8899';
 const BASES = {
   jsdelivr: `https://cdn.jsdelivr.net/gh/${REPO}@${BRANCH}`,
   raw: `https://raw.githubusercontent.com/${REPO}/${BRANCH}`,
+  pages: 'https://zoe.im/tvbox',   // GH Pages via zoe.im (推荐, 用户端 URL 无外部依赖)
   local: LOCAL_HOST,
 };
 const BASE = BASES[BASE_MODE];

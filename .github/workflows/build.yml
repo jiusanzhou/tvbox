@@ -32,11 +32,20 @@ jobs:
         # 只当"CI 提示"
         run: node --experimental-loader ./scripts/loader.mjs scripts/smoke.mjs --json=smoke.json || true
 
-      - name: Sync tvbox.json + smoke.json 到 docs/ (给 GH Pages 展示)
+      - name: Sync 到 docs/ (给 GH Pages 展示 + 用户订阅)
         run: |
           mkdir -p docs
           cp -f tvbox.json docs/tvbox.json
           [ -f smoke.json ] && cp -f smoke.json docs/smoke.json || true
+          # 把 sites/ 也镜像到 docs/, spider.js URL 可以走 zoe.im 域名
+          mkdir -p docs/sites
+          # 只同步 spider.js + meta.json (README 不需要)
+          for d in sites/*/; do
+            name=$(basename "$d")
+            mkdir -p "docs/sites/$name"
+            [ -f "$d/spider.js" ] && cp -f "$d/spider.js" "docs/sites/$name/spider.js"
+            [ -f "$d/meta.json" ] && cp -f "$d/meta.json" "docs/sites/$name/meta.json"
+          done
 
       - name: Commit tvbox.json if changed
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

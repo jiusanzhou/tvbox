@@ -2,22 +2,22 @@
   "_meta": {
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
-    "base": "jsdelivr",
-    "commit": "fc751ad",
-    "generated_at": "2026-08-02T14:36:01.299Z",
+    "base": "pages",
+    "commit": "cf47b1a",
+    "generated_at": "2026-08-02T14:41:57.135Z",
     "site_count": 2,
     "sites": [
       {
         "key": "aiyifan_api",
         "hash": "df27a7c0",
         "tags": [],
-        "updated_at": "2026-08-02T14:35:56.729Z"
+        "updated_at": "2026-08-02T10:28:46.635Z"
       },
       {
         "key": "ddys",
         "hash": "55ba6416",
         "tags": [],
-        "updated_at": "2026-08-02T14:35:56.729Z"
+        "updated_at": "2026-08-02T11:17:02.493Z"
       }
     ]
   },
@@ -28,7 +28,7 @@
       "key": "aiyifan_api",
       "name": "🎬 爱壹帆",
       "type": 3,
-      "api": "https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/sites/aiyifan/spider.js",
+      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -45,7 +45,7 @@
       "key": "ddys",
       "name": "🎞 低端影视",
       "type": 3,
-      "api": "https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/sites/ddys/spider.js",
+      "api": "https://zoe.im/tvbox/sites/ddys/spider.js",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,

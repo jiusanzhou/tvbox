@@ -80,13 +80,16 @@
   <div class="panel">
     <div style="font-weight:600; margin-bottom:8px;">📥 订阅 URL</div>
     <div class="url-box">
-      <input id="subUrl" value="https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json" readonly />
+      <input id="subUrl" value="https://zoe.im/tvbox/tvbox.json" readonly />
       <button onclick="copyUrl()">复制</button>
     </div>
     <div class="status-line">
-      <span>备用: <a href="https://raw.githubusercontent.com/jiusanzhou/tvbox/main/tvbox.json">raw.github</a> · 
-      <a href="https://fastly.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json">fastly</a> · 
-      <a href="https://gcore.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json">gcore</a></span>
+      <span>备用: 
+        <a href="https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json">jsdelivr</a> · 
+        <a href="https://raw.githubusercontent.com/jiusanzhou/tvbox/main/tvbox.json">raw.github</a> · 
+        <a href="https://fastly.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json">fastly</a> · 
+        <a href="https://gcore.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json">gcore</a>
+      </span>
     </div>
     <div id="qrcode"></div>
   </div>
@@ -106,7 +109,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
   <script>
-    const SUB_URL = 'https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json';
+    const SUB_URL = 'https://zoe.im/tvbox/tvbox.json';
     const TVBOX_URL = './tvbox.json';   // 用同 repo 的相对路径(Pages 部署时)
     const SMOKE_URL = './smoke.json';
 

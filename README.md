@@ -7,12 +7,16 @@
 在 FongMi TV / 影视仓 / TVBox 里导入：
 
 ```
-https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json
+https://zoe.im/tvbox/tvbox.json
 ```
 
-（备用：`https://raw.githubusercontent.com/jiusanzhou/tvbox/main/tvbox.json`）
+备用（同一份内容，不同 CDN 路径）：
+- `https://cdn.jsdelivr.net/gh/jiusanzhou/tvbox@main/tvbox.json`
+- `https://raw.githubusercontent.com/jiusanzhou/tvbox/main/tvbox.json`
 
 导入后首页顶部的 **站源** 按钮可切换 site。
+
+👉 **面板**：<https://zoe.im/tvbox/>（含二维码 + 站源健康状态）
 
 ## 🎬 收录站点
 
