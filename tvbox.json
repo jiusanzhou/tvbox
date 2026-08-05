@@ -3,21 +3,21 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "16fb374",
-    "generated_at": "2026-08-05T02:21:43.216Z",
+    "commit": "05482a8",
+    "generated_at": "2026-08-05T02:22:08.353Z",
     "site_count": 3,
     "sites": [
       {
         "key": "aiyifan_api",
         "hash": "df27a7c0",
         "tags": [],
-        "updated_at": "2026-08-05T01:26:56.781Z"
+        "updated_at": "2026-08-05T02:22:03.125Z"
       },
       {
         "key": "ddys",
         "hash": "55ba6416",
         "tags": [],
-        "updated_at": "2026-08-05T01:26:56.783Z"
+        "updated_at": "2026-08-05T02:22:03.125Z"
       },
       {
         "key": "ffzy",
@@ -27,7 +27,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-05T02:21:27.707Z"
+        "updated_at": "2026-08-05T02:22:03.125Z"
       }
     ]
   },
