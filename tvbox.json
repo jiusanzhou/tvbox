@@ -3,21 +3,31 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "fde8256",
-    "generated_at": "2026-08-02T14:42:41.537Z",
-    "site_count": 2,
+    "commit": "16fb374",
+    "generated_at": "2026-08-05T02:21:43.216Z",
+    "site_count": 3,
     "sites": [
       {
         "key": "aiyifan_api",
         "hash": "df27a7c0",
         "tags": [],
-        "updated_at": "2026-08-02T14:42:36.542Z"
+        "updated_at": "2026-08-05T01:26:56.781Z"
       },
       {
         "key": "ddys",
         "hash": "55ba6416",
         "tags": [],
-        "updated_at": "2026-08-02T14:42:36.542Z"
+        "updated_at": "2026-08-05T01:26:56.783Z"
+      },
+      {
+        "key": "ffzy",
+        "hash": "d48b3a50",
+        "tags": [
+          "cn",
+          "maccms"
+        ],
+        "type": 1,
+        "updated_at": "2026-08-05T02:21:27.707Z"
       }
     ]
   },
@@ -56,6 +66,15 @@
         "综艺",
         "纪录片"
       ]
+    },
+    {
+      "key": "ffzy",
+      "name": "⚡ 非凡资源",
+      "type": 1,
+      "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
     }
   ],
   "parses": [

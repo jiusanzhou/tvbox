@@ -86,11 +86,45 @@ for (const d of dirs) {
   if (tagFilter && !meta.tags?.some(t => tagFilter.includes(t))) continue;
 
   // 校验必填
-  if (!meta.key || !meta.name || !meta.spider) {
-    console.error(`❌ sites/${d}/meta.json 缺 key/name/spider`);
+  if (!meta.key || !meta.name) {
+    console.error(`❌ sites/${d}/meta.json 缺 key/name`);
     process.exit(1);
   }
 
+  // MacCMS/JSON 采集站 (type: 0/1) 不需要 spider.js, api 直接是外部 URL
+  const isCollector = meta.type === 0 || meta.type === 1;
+
+  if (isCollector) {
+    if (!meta.api) {
+      console.error(`❌ sites/${d}/meta.json type=${meta.type} 需要 api 字段 (外部采集 URL)`);
+      process.exit(1);
+    }
+    sites.push({
+      key: meta.key,
+      name: meta.name,
+      type: meta.type,
+      api: meta.api,
+      searchable: meta.searchable ?? 1,
+      quickSearch: meta.quickSearch ?? 1,
+      filterable: meta.filterable ?? 1,
+      ...(meta.ext ? { ext: meta.ext } : {}),
+      ...(meta.categories ? { categories: meta.categories } : {}),
+    });
+    siteMeta.push({
+      key: meta.key,
+      hash: crypto.createHash('sha256').update(meta.api).digest('hex').slice(0, 8),
+      tags: meta.tags || [],
+      type: meta.type,
+      updated_at: fs.statSync(path.join(sitesDir, d, 'meta.json')).mtime.toISOString(),
+    });
+    continue;
+  }
+
+  // type=3/4 (spider) 需要 spider.js 存在
+  if (!meta.spider) {
+    console.error(`❌ sites/${d}/meta.json type=${meta.type ?? 3} 需要 spider 字段`);
+    process.exit(1);
+  }
   const spiderPath = path.join(sitesDir, d, path.basename(meta.spider));
   const spiderRel = path.relative(ROOT, spiderPath);
   if (!fs.existsSync(spiderPath)) {

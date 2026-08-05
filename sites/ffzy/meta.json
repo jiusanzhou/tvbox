@@ -1,0 +1,15 @@
+{
+  "key": "ffzy",
+  "name": "⚡ 非凡资源",
+  "type": 1,
+  "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+  "searchable": 1,
+  "quickSearch": 1,
+  "filterable": 1,
+  "tags": ["cn", "maccms"],
+  "source": "https://cj.ffzyapi.com/",
+  "note": "MacCMS v10 采集站, 97655 部影片, 31 分类, 无签名开放 API",
+  "probes": [
+    "https://cj.ffzyapi.com/api.php/provide/vod/?ac=list"
+  ]
+}
