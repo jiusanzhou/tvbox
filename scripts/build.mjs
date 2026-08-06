@@ -136,7 +136,7 @@ for (const d of dirs) {
     key: meta.key,
     name: meta.name,
     type: meta.type ?? 3,
-    api: resolveUrl(spiderRel.split(path.sep).join('/')) + `?v=${fileHash(spiderPath)}`,
+    api: resolveUrl(spiderRel.split(path.sep).join('/')) + `?v=${fileHash(spiderPath)}&t=${Date.now()}`,
     searchable: meta.searchable ?? 1,
     quickSearch: meta.quickSearch ?? 1,
     filterable: meta.filterable ?? 0,

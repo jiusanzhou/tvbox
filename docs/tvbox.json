@@ -3,8 +3,8 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "17825bb",
-    "generated_at": "2026-08-06T15:37:15.777Z",
+    "commit": "5254db6",
+    "generated_at": "2026-08-06T15:44:01.535Z",
     "site_count": 3,
     "sites": [
       {
@@ -42,7 +42,7 @@
       "key": "aiyifan_api",
       "name": "🎬 爱壹帆",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=801cacd7",
+      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=801cacd7&t=1786031041482",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -59,7 +59,7 @@
       "key": "ddys",
       "name": "🎞 低端影视",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=55ba6416",
+      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=55ba6416&t=1786031041487",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,
