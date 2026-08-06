@@ -1,5 +1,5 @@
 // site2source-ext — 通用 SiteModel T3 spider
-// Generated: 2026-08-05T13:58:43.911Z
+// Generated: 2026-08-06T15:36:42.363Z
 // Site: 爱壹帆 (aiyifan)
 // URL: https://www.aiyifan.tv
 // 签名模式: cert / timestamp
@@ -560,9 +560,13 @@ function ensureBoot() {
   if (!ep) { console.log('[s2s] bootstrap endpoint 未找到'); return false; }
   var raw = callEndpointRaw(ep, {});
   if (!raw) { console.log('[s2s] bootstrap 请求失败(无响应)'); return false; }
+  // bootstrap extract 路径跟业务端点保持一致 — 从 data 层开始
+  // (callEndpointRaw 返回完整 { ret, data, msg }, bootstrap.extract path 里
+  //  写的是 "info[0].pConfig.publicKey" 而不是 "data.info[0].pConfig.publicKey")
+  var payload = raw && typeof raw === 'object' && 'data' in raw ? raw.data : raw;
   var extracted = {};
   for (var k in SITE.bootstrap.extract) {
-    extracted[k] = jpath(raw, SITE.bootstrap.extract[k]);
+    extracted[k] = jpath(payload, SITE.bootstrap.extract[k]);
   }
   // 后处理
   if (SITE.bootstrap.transforms) {

@@ -3,25 +3,25 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "eb83e2e",
-    "generated_at": "2026-08-06T04:02:46.998Z",
+    "commit": "17825bb",
+    "generated_at": "2026-08-06T15:37:15.777Z",
     "site_count": 3,
     "sites": [
       {
         "key": "aiyifan_api",
-        "hash": "6ee6564b",
+        "hash": "801cacd7",
         "tags": [
           "cn",
           "signed",
           "proxied"
         ],
-        "updated_at": "2026-08-06T04:02:42.170Z"
+        "updated_at": "2026-08-06T15:36:55.804Z"
       },
       {
         "key": "ddys",
         "hash": "55ba6416",
         "tags": [],
-        "updated_at": "2026-08-06T04:02:42.171Z"
+        "updated_at": "2026-08-05T01:26:56.783Z"
       },
       {
         "key": "ffzy",
@@ -31,7 +31,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-06T04:02:42.171Z"
+        "updated_at": "2026-08-05T02:21:27.707Z"
       }
     ]
   },
@@ -42,7 +42,7 @@
       "key": "aiyifan_api",
       "name": "🎬 爱壹帆",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=6ee6564b",
+      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=801cacd7",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
