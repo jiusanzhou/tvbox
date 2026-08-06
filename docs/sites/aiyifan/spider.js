@@ -1,329 +1,889 @@
-// site2source-ext — aiyifan API 型 T3 spider
-// Generated: 2026-08-02T07:23:59.623Z
+// site2source-ext — 通用 SiteModel T3 spider
+// Generated: 2026-08-05T13:58:43.911Z
+// Site: 爱壹帆 (aiyifan)
+// URL: https://www.aiyifan.tv
+// 签名模式: cert / timestamp
 //
-// 完整签名双模:
-//   1. timestamp: pub=Date.now(), pk=PKS_TS[pub%8], vv=md5(pub+'&'+q+'&'+pk)
-//   2. cert:      pub=pConfig.publicKey, pk=pConfig.privateKey[0], 同公式
-// video/play 用集 key 时必须 cert; 其他端点两者都行, 但 cert 更稳。
-//
-// 剧集列表: v3/video/languagesplaylist?cinema=1&vid={key}&lsk=1&taxis=0&cid={cid}
-// 每集 play: v3/video/play?cinema=1&id={集key}&a=0&lang=none&usersign=1&region=SG&device=1&isMasterSupport=1
+// 这份 spider 是**引擎 + SiteModel 内联**的产物。改站点行为不用改代码，改 SiteModel。
+// 生成器在 lib/model-generator.ts。SiteModel 定义在 lib/site-model.ts。
 
 import * as cheerio from 'assets://js/lib/cat.js';
 
-var API = 'https://m10.aiyifan.tv';
-var RANK = 'https://rankv21.aiyifan.tv';
-var SITE = 'https://www.aiyifan.tv';
-
-// timestamp 模式的 8 个混淆密钥（形近字符攻击式命名）
-var PKS_TS = [
-  'version001', 'vers1on001', 'vers1on00i', 'bersion001',
-  'vcrsion001', 'versi0n001', 'versio_001', 'version0o1',
-];
-
-var HDR = {
-  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36',
-  'Referer': SITE + '/',
-  'Origin': SITE,
-  'Accept': 'application/json, text/plain, */*',
-  'Accept-Language': 'zh-CN,zh;q=0.9,en;q=0.8',
+// ====== SiteModel（内联）======
+var SITE = {
+  "name": "aiyifan",
+  "display_name": "爱壹帆",
+  "site_url": "https://www.aiyifan.tv",
+  "bases": {
+    "api": "https://m10.aiyifan.tv",
+    "rank": "https://rankv21.aiyifan.tv"
+  },
+  "signing": {
+    "default_strategy": "auto",
+    "modes": [
+      {
+        "name": "cert",
+        "vars": {
+          "pub": {
+            "kind": "bootstrap",
+            "path": "publicKey"
+          },
+          "query_lower": {
+            "kind": "query_lower"
+          },
+          "pk": {
+            "kind": "bootstrap",
+            "path": "privateKey[0]"
+          }
+        },
+        "formula": "{pub}&{query_lower}&{pk}",
+        "algorithm": "md5",
+        "attach": {
+          "vv": "{sign}",
+          "pub": "{pub}"
+        }
+      },
+      {
+        "name": "timestamp",
+        "vars": {
+          "pub": {
+            "kind": "timestamp"
+          },
+          "query_lower": {
+            "kind": "query_lower"
+          },
+          "pk": {
+            "kind": "key_table",
+            "table": [
+              "version001",
+              "vers1on001",
+              "vers1on00i",
+              "bersion001",
+              "vcrsion001",
+              "versi0n001",
+              "versio_001",
+              "version0o1"
+            ],
+            "index": "Number(pub) % 8"
+          }
+        },
+        "formula": "{pub}&{query_lower}&{pk}",
+        "algorithm": "md5",
+        "attach": {
+          "vv": "{sign}",
+          "pub": "{pub}"
+        }
+      }
+    ]
+  },
+  "bootstrap": {
+    "endpoint": "config",
+    "extract": {
+      "publicKey": "info[0].pConfig.publicKey",
+      "privateKey": "info[0].pConfig.privateKey"
+    },
+    "transforms": [
+      {
+        "field": "privateKey",
+        "op": "as_array"
+      }
+    ]
+  },
+  "endpoints": [
+    {
+      "name": "config",
+      "base": "api",
+      "path": "v3/home/config",
+      "query": "cinema=1",
+      "sign_mode": "timestamp"
+    },
+    {
+      "name": "home",
+      "base": "api",
+      "path": "v3/home/getAllVideo",
+      "query": "cinema=1&page=1&size=100&region=SG",
+      "sign_mode": "auto",
+      "response": {
+        "item": {
+          "path": "info[0]"
+        }
+      }
+    },
+    {
+      "name": "detail",
+      "base": "api",
+      "path": "v3/video/detail",
+      "query": "cinema=1&device=1&player=CkPlayer&tech=HLS&lang=cns&v=1&id={id}&region=SG",
+      "sign_mode": "auto",
+      "response": {
+        "item": {
+          "path": "info[0]"
+        }
+      }
+    },
+    {
+      "name": "episodes",
+      "base": "api",
+      "path": "v3/video/languagesplaylist",
+      "query": "cinema=1&vid={id}&lsk=1&taxis=0&cid={cid}",
+      "sign_mode": "auto",
+      "response": {
+        "episodes": {
+          "path": "info[0].playList"
+        }
+      }
+    },
+    {
+      "name": "play",
+      "base": "api",
+      "path": "v3/video/play",
+      "query": "cinema=1&id={id}&a=0&lang=none&usersign=1&region=SG&device=1&isMasterSupport=1",
+      "sign_mode": "cert",
+      "response": {
+        "play_url": {
+          "priority": [
+            {
+              "path": "info[0].clarity",
+              "first_where": "isEnabled=true",
+              "field": "path.result"
+            },
+            {
+              "path": "info[0].flvPathList",
+              "first_where": "isHls=true",
+              "field": "result"
+            },
+            {
+              "path": "info[0].hlsPathList",
+              "first_where": "isHls=true",
+              "field": "result"
+            },
+            {
+              "path": "info[0].flvPathList",
+              "first_where": "isHls=true",
+              "field": "result"
+            }
+          ],
+          "exclude": [
+            {
+              "host_regex": "s1-a1\\.global-cdn\\.me"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "search",
+      "base": "rank",
+      "path": "v3/list/briefsearch",
+      "query": "tags={wd}&orderby=4&page={page}&size=20&desc=0&isserial=-1&istitle=true",
+      "sign_mode": "auto",
+      "response": {
+        "list": {
+          "path": "info[0].result"
+        }
+      }
+    }
+  ],
+  "mappings": {
+    "vod_id": [
+      "key",
+      "contxt",
+      "id"
+    ],
+    "vod_name": [
+      "title",
+      "name"
+    ],
+    "vod_pic": [
+      "image",
+      "imgPath",
+      "cover",
+      "pic"
+    ],
+    "vod_year": [
+      "year",
+      "post_Year"
+    ],
+    "vod_area": [
+      "regional",
+      "area"
+    ],
+    "vod_actor": [
+      "starring",
+      "stars",
+      "actor"
+    ],
+    "vod_director": [
+      "directed",
+      "directors",
+      "director"
+    ],
+    "vod_content": [
+      "shortDes",
+      "contxt",
+      "desc"
+    ],
+    "vod_remarks": [
+      "lastName",
+      "score",
+      "rating"
+    ],
+    "ep_name": [
+      "name",
+      "title"
+    ],
+    "ep_id": [
+      "key",
+      "id"
+    ]
+  },
+  "categories": [
+    {
+      "kind": "static",
+      "id": "filmList",
+      "name": "电影",
+      "source_field": "info[0].filmList"
+    },
+    {
+      "kind": "static",
+      "id": "tvList",
+      "name": "剧集",
+      "source_field": "info[0].tvList"
+    },
+    {
+      "kind": "static",
+      "id": "varietyList",
+      "name": "综艺",
+      "source_field": "info[0].varietyList"
+    },
+    {
+      "kind": "static",
+      "id": "animeList",
+      "name": "动漫",
+      "source_field": "info[0].animeList"
+    },
+    {
+      "kind": "static",
+      "id": "shortList",
+      "name": "短剧",
+      "source_field": "info[0].shortList"
+    },
+    {
+      "kind": "static",
+      "id": "documentaryList",
+      "name": "纪录片",
+      "source_field": "info[0].documentaryList"
+    },
+    {
+      "kind": "static",
+      "id": "sportList",
+      "name": "体育",
+      "source_field": "info[0].sportList"
+    }
+  ],
+  "play_result": {
+    "on_hit": {
+      "parse": 0
+    },
+    "on_miss": {
+      "parse": 1,
+      "url_template": "{site_url}/play/{id}"
+    }
+  },
+  "paging": {
+    "strategy": "local",
+    "page_size": 30
+  },
+  "proxy": {
+    "base": "https://notes-edge.pages.dev",
+    "mode": "query",
+    "headers": {
+      "Authorization": "Bearer -sLLUu7d2IaCDt3-jH_RqyprAJwC0sBW"
+    },
+    "only": [
+      "api",
+      "rank"
+    ],
+    "proxy_media": false
+  }
 };
 
-var CATS = [
-  { id: 'filmList', name: '电影', cid: '0,1,3' },
-  { id: 'tvList', name: '剧集', cid: '0,1,4' },
-  { id: 'varietyList', name: '综艺', cid: '0,1,5' },
-  { id: 'animeList', name: '动漫', cid: '0,1,6' },
-  { id: 'shortList', name: '短剧', cid: '0,1,8' },
-  { id: 'documentaryList', name: '纪录片', cid: '0,1,7' },
-  { id: 'sportList', name: '体育', cid: '0,1,9' },
-];
+var HDR = {
+  "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+  "Referer": "https://www.aiyifan.tv/",
+  "Origin": "https://www.aiyifan.tv",
+  "Accept": "application/json, text/plain, */*",
+  "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8"
+};
 
-// pConfig 缓存: 首次 bootstrap 后长期有效
-var PCONFIG = null;
-// 首页聚合缓存（10 分钟）
-var CACHE = null;
-var CACHE_AT = 0;
-// detail 缓存（key -> {cid, title, ...}）—— languagesplaylist 要 cid
-var DETAIL_CACHE = {};
+// bootstrap 结果缓存（跨调用持久）
+var BOOT = null;
+// home 端点响应缓存（10 分钟）
+var HOME_CACHE = null;
+var HOME_AT = 0;
 
-// 用 timestamp 模式签一个 URL（不需要 pConfig, 用于 bootstrap）
-function signedUrlTS(base, path, query) {
-  var pub = '' + Date.now();
-  var pk = PKS_TS[Number(pub) % PKS_TS.length];
-  var vv = md5X(pub + '&' + query.toLowerCase() + '&' + pk);
-  return base + '/' + path + '?' + query + '&vv=' + vv + '&pub=' + pub;
+// ---------- 引擎：JSONPath / cheerio / md5 都是 FongMi 提供 ----------
+
+/** 简易 JSONPath: "info[0].pConfig.publicKey" */
+function jpath(obj, path) {
+  if (!path) return obj;
+  var parts = String(path).split(/[.\[\]]+/).filter(Boolean);
+  var cur = obj;
+  for (var i = 0; i < parts.length; i++) {
+    if (cur == null) return null;
+    var p = parts[i];
+    var idx = Number(p);
+    cur = isFinite(idx) && String(idx) === p ? cur[idx] : cur[p];
+  }
+  return cur;
 }
 
-// 用 cert 模式签一个 URL（pConfig 已就绪）
-function signedUrlCert(base, path, query) {
-  var pub = PCONFIG.publicKey;
-  var pk = PCONFIG.privateKey[0];
-  var vv = md5X(pub + '&' + query.toLowerCase() + '&' + pk);
-  return base + '/' + path + '?' + query + '&vv=' + vv + '&pub=' + pub;
+/** 从若干字段候选里挑第一个非空的 */
+function pickField(obj, candidates) {
+  if (!obj) return '';
+  var arr = Array.isArray(candidates) ? candidates : [candidates];
+  for (var i = 0; i < arr.length; i++) {
+    var v = jpath(obj, arr[i]);
+    if (v !== null && v !== undefined && v !== '') return v;
+  }
+  return '';
 }
 
-// bootstrap: 拿 pConfig（幂等）
-function ensureBootstrap() {
-  if (PCONFIG) return true;
-  var url = signedUrlTS(API, 'v3/home/config', 'cinema=1');
-  try {
-    var res = req(url, { headers: HDR });
-    var body = res.content || res;
-    var j = typeof body === 'string' ? JSON.parse(body) : body;
-    var info = j && j.data && j.data.info;
-    var pc = info && info[0] && info[0].pConfig;
-    if (pc && pc.publicKey && pc.privateKey && pc.privateKey.length) {
-      // pConfig.privateKey 有时是字符串, 有时是数组, 统一成数组
-      var pkArr = typeof pc.privateKey === 'string' ? [pc.privateKey] : pc.privateKey;
-      PCONFIG = { publicKey: pc.publicKey, privateKey: pkArr };
-      console.log('[s2s] bootstrap 完成，pConfig 已获取');
-      return true;
+/** 表达式对比: "isEnabled=true" or "path.result=xxx" */
+function matchCond(item, cond) {
+  if (!cond) return true;
+  var m = String(cond).match(/^([\w.\[\]]+)\s*=\s*(.+)$/);
+  if (!m) return true;
+  var lhs = jpath(item, m[1]);
+  var rhs = m[2].trim();
+  if (rhs === 'true') return lhs === true;
+  if (rhs === 'false') return lhs === false;
+  if (/^-?\d+$/.test(rhs)) return Number(lhs) === Number(rhs);
+  return String(lhs) === rhs || String(lhs) === rhs.replace(/^["']|["']$/g, '');
+}
+
+/** 挑选器：ResponsePicker → 值 */
+function pickResp(data, picker) {
+  if (!picker) return null;
+  // priority：依次尝试
+  if (picker.priority && picker.priority.length) {
+    for (var i = 0; i < picker.priority.length; i++) {
+      var v = pickResp(data, picker.priority[i]);
+      if (v != null && v !== '') {
+        if (!picker.exclude) return v;
+        var s = typeof v === 'string' ? v : (v && v.result) || '';
+        if (!isExcluded(s, picker.exclude)) return v;
+      }
     }
-    console.log('[s2s] bootstrap 失败: pConfig 缺失，code=' + (j && j.data && j.data.code) + ' msg=' + (j && j.data && j.data.msg));
-  } catch (e) {
-    console.log('[s2s] bootstrap 异常: ' + e.message);
+    return null;
+  }
+  var cur = picker.path ? jpath(data, picker.path) : data;
+  if (picker.first_where && Array.isArray(cur)) {
+    for (var j = 0; j < cur.length; j++) {
+      if (matchCond(cur[j], picker.first_where)) { cur = cur[j]; break; }
+      if (j === cur.length - 1) cur = null;
+    }
+  }
+  if (picker.field && cur != null) cur = jpath(cur, picker.field);
+  if (picker.exclude) {
+    var val = typeof cur === 'string' ? cur : (cur && cur.result) || '';
+    if (isExcluded(val, picker.exclude)) return null;
+  }
+  return cur;
+}
+
+function isExcluded(url, rules) {
+  if (!url || !rules) return false;
+  for (var i = 0; i < rules.length; i++) {
+    var r = rules[i];
+    if (r.host_regex && new RegExp(r.host_regex).test(url)) return true;
+    if (r.contains && url.indexOf(r.contains) >= 0) return true;
   }
   return false;
 }
 
-// 通用 API 调用: mode='auto' 优先 cert, 失败退 timestamp
-function apiGet(base, path, query, mode) {
-  var useCert = (mode !== 'ts') && ensureBootstrap();
-  var url = useCert ? signedUrlCert(base, path, query) : signedUrlTS(base, path, query);
-  var res, body, j;
-  try {
-    res = req(url, { headers: HDR });
-    body = res.content || res;
-    j = typeof body === 'string' ? JSON.parse(body) : body;
-    if (j && j.data && j.data.code === 0) return j.data.info;
-    // cert 失败 → 试 timestamp（很少见, 保险起见）
-    if (useCert && j && j.data && j.data.code !== 0) {
-      console.log('[s2s] cert 失败, 试 timestamp: ' + path + ' msg=' + j.data.msg);
-      var url2 = signedUrlTS(base, path, query);
-      var res2 = req(url2, { headers: HDR });
-      var body2 = res2.content || res2;
-      var j2 = typeof body2 === 'string' ? JSON.parse(body2) : body2;
-      if (j2 && j2.data && j2.data.code === 0) return j2.data.info;
-      console.log('[s2s] api ' + path + ' 两种模式都失败: cert msg=' + j.data.msg + ' ts msg=' + (j2 && j2.data && j2.data.msg));
-    } else {
-      console.log('[s2s] api ' + path + ' code=' + (j && j.data && j.data.code) + ' msg=' + (j && j.data && j.data.msg));
+// ---------- Proxy 包装（GEO block 绕过用）----------
+
+/**
+ * 把 rawUrl 包装成经过 SITE.proxy 转发的 URL；
+ * 同时把 proxy.headers（如 Authorization）合并进 hdr。
+ * 无 proxy 或不适用时透传。
+ */
+function wrapProxy(rawUrl, epBaseKey, hdr) {
+  if (!SITE.proxy || !SITE.proxy.base) return { url: rawUrl, hdr: hdr };
+  if (SITE.proxy.only && SITE.proxy.only.length && SITE.proxy.only.indexOf(epBaseKey) < 0) return { url: rawUrl, hdr: hdr };
+  var pmode = SITE.proxy.mode || 'query';
+  var pbase = String(SITE.proxy.base).replace(/\/$/, '');
+  var proxied;
+  if (pmode === 'path') {
+    proxied = pbase + '/' + rawUrl.replace(/^https?:\/\//, '');
+  } else {
+    proxied = pbase + '/?url=' + encodeURIComponent(rawUrl);
+  }
+  var newHdr = {}; for (var k in hdr) newHdr[k] = hdr[k];
+  if (SITE.proxy.headers) for (var k2 in SITE.proxy.headers) newHdr[k2] = SITE.proxy.headers[k2];
+  return { url: proxied, hdr: newHdr };
+}
+
+/** 单独给媒体 URL (m3u8/mp4) 用的 proxy 包装；受 proxy_media 开关控制 */
+function wrapMediaUrl(mediaUrl) {
+  if (!SITE.proxy || !SITE.proxy.proxy_media) return { url: mediaUrl, hdr: null };
+  var pmode = SITE.proxy.mode || 'query';
+  var pbase = String(SITE.proxy.base).replace(/\/$/, '');
+  var proxied;
+  if (pmode === 'path') {
+    proxied = pbase + '/' + mediaUrl.replace(/^https?:\/\//, '');
+  } else {
+    proxied = pbase + '/?url=' + encodeURIComponent(mediaUrl);
+  }
+  var hdr = SITE.proxy.headers ? Object.assign({}, SITE.proxy.headers) : null;
+  return { url: proxied, hdr: hdr };
+}
+
+// ---------- 签名 ----------
+
+/** 从 SignVarSource 算值（运行时） */
+function resolveVar(src, ctx) {
+  switch (src.kind) {
+    case 'literal': return src.value;
+    case 'timestamp': return String(Date.now());
+    case 'random': {
+      var len = src.length || 16;
+      var s = '';
+      for (var i = 0; i < len; i++) s += Math.floor(Math.random() * 16).toString(16);
+      return s;
     }
-  } catch (e) {
-    console.log('[s2s] api ' + path + ' 异常: ' + e.message);
+    case 'bootstrap':
+      if (!BOOT) throw new Error('kind:bootstrap 需要先 bootstrap');
+      var v = jpath(BOOT, src.path);
+      return v == null ? '' : String(v);
+    case 'key_table': {
+      var pub = ctx.pub || '';
+      // eslint-disable-next-line no-new-func
+      var idx = 0;
+      try { idx = new Function('pub', 'return (' + src.index + ');')(pub); } catch (e) { idx = 0; }
+      var clamped = Math.abs(Number(idx)) % src.table.length;
+      return src.table[clamped];
+    }
+    case 'query_lower':
+      return String(ctx.query || '').toLowerCase();
+    default: return '';
+  }
+}
+
+function applyAlg(alg, input, hmacKey) {
+  if (alg === 'md5') return md5X(input);
+  // TODO: sha1/sha256/hmac 需要 FongMi 环境支持；先只做 md5
+  return input;
+}
+
+function renderTpl(tpl, vals) {
+  return String(tpl).replace(/\{(\w+)\}/g, function (_, k) { return vals[k] == null ? '' : vals[k]; });
+}
+
+/** 给 URL 附加签名 */
+function signUrl(base, path, query, mode) {
+  if (!mode) return base + '/' + path + (query ? '?' + query : '');
+  var vals = { query: query };
+  // 按 vars 声明顺序算（key_table 可能依赖 pub）
+  var order = Object.keys(mode.vars).sort(function (a, b) {
+    // pub 先算
+    if (a === 'pub') return -1;
+    if (b === 'pub') return 1;
+    return 0;
+  });
+  var anyFailed = false;
+  for (var i = 0; i < order.length; i++) {
+    var k = order[i];
+    try {
+      vals[k] = resolveVar(mode.vars[k], vals);
+    } catch (e) {
+      // 静默失败（cert 模式 BOOT 还没就绪时会抛）
+      vals[k] = '';
+      anyFailed = true;
+    }
+  }
+  if (anyFailed) return null; // 让 caller 换 mode
+  var input = renderTpl(mode.formula, vals);
+  var sign = applyAlg(mode.algorithm, input, mode.hmac_key ? renderTpl(mode.hmac_key, vals) : null);
+  vals.sign = sign;
+  // 组装 URL
+  var extra = [];
+  for (var attach in mode.attach) {
+    extra.push(attach + '=' + renderTpl(mode.attach[attach], vals));
+  }
+  var q = query ? query + '&' + extra.join('&') : extra.join('&');
+  return base + '/' + path + '?' + q;
+}
+
+/** 选签名模式 */
+function pickMode(endpoint) {
+  if (endpoint.sign_mode === 'none') return null;
+  if (!SITE.signing || !SITE.signing.modes) return null;
+  if (endpoint.sign_mode === 'auto') {
+    var strategy = SITE.signing.default_strategy || 'first';
+    if (strategy === 'auto') {
+      // 优先带 bootstrap 依赖的模式（cert 类）— BOOT 就绪时用它
+      if (BOOT && bootIsValid(BOOT)) {
+        for (var i = 0; i < SITE.signing.modes.length; i++) {
+          var m = SITE.signing.modes[i];
+          var hasBoot = false;
+          for (var k in m.vars) if (m.vars[k].kind === 'bootstrap') { hasBoot = true; break; }
+          if (hasBoot) return m;
+        }
+      }
+      // BOOT 未就绪 → 选无 bootstrap 依赖的模式
+      for (var i2 = 0; i2 < SITE.signing.modes.length; i2++) {
+        var m2 = SITE.signing.modes[i2];
+        var hasBoot2 = false;
+        for (var k2 in m2.vars) if (m2.vars[k2].kind === 'bootstrap') { hasBoot2 = true; break; }
+        if (!hasBoot2) return m2;
+      }
+    }
+    return SITE.signing.modes[0];
+  }
+  for (var j = 0; j < SITE.signing.modes.length; j++) {
+    if (SITE.signing.modes[j].name === endpoint.sign_mode) return SITE.signing.modes[j];
   }
   return null;
 }
 
-function toVod(it) {
-  // getAllVideo 用 key/image/rating(评分字符串)
-  // briefsearch 用 contxt/imgPath/score+rating(热度数字)
-  var id = it.key || it.contxt || '';
-  var pic = it.image || it.imgPath || '';
-  var score = it.score || (typeof it.rating === 'string' ? it.rating : '');
-  var remarks = it.lastName ? ('更新至' + it.lastName) : (it.cid || it.atypeName || '');
-  if (score) remarks = remarks ? (remarks + ' · ' + score) : score;
-  if (it.vipResource) remarks = remarks + ' ' + it.vipResource;
+// ---------- bootstrap ----------
+function ensureBoot() {
+  // 完整成功过一次就不再重跑
+  if (BOOT && bootIsValid(BOOT)) return true;
+  if (!SITE.bootstrap) { BOOT = {}; return true; } // 无 bootstrap
+  var ep = null;
+  for (var i = 0; i < SITE.endpoints.length; i++) {
+    if (SITE.endpoints[i].name === SITE.bootstrap.endpoint) { ep = SITE.endpoints[i]; break; }
+  }
+  if (!ep) { console.log('[s2s] bootstrap endpoint 未找到'); return false; }
+  var raw = callEndpointRaw(ep, {});
+  if (!raw) { console.log('[s2s] bootstrap 请求失败(无响应)'); return false; }
+  var extracted = {};
+  for (var k in SITE.bootstrap.extract) {
+    extracted[k] = jpath(raw, SITE.bootstrap.extract[k]);
+  }
+  // 后处理
+  if (SITE.bootstrap.transforms) {
+    for (var t = 0; t < SITE.bootstrap.transforms.length; t++) {
+      var trs = SITE.bootstrap.transforms[t];
+      var v = extracted[trs.field];
+      if (trs.op === 'as_array' && typeof v === 'string') extracted[trs.field] = [v];
+      else if (trs.op === 'as_string' && Array.isArray(v)) extracted[trs.field] = v[0] || '';
+      else if (trs.op === 'first_item' && Array.isArray(v)) extracted[trs.field] = v[0];
+    }
+  }
+  if (!bootIsValid(extracted)) {
+    console.log('[s2s] bootstrap 提取值全空, 保留 BOOT=null 稍后重试');
+    return false;
+  }
+  BOOT = extracted;
+  console.log('[s2s] bootstrap ok, keys=' + Object.keys(extracted).join(','));
+  return true;
+}
+
+/** 判断 bootstrap 提取的值有效（至少一个字段非空）*/
+function bootIsValid(b) {
+  if (!b) return false;
+  for (var k in b) {
+    var v = b[k];
+    if (v == null) continue;
+    if (typeof v === 'string' && !v) continue;
+    if (Array.isArray(v) && !v.length) continue;
+    return true;
+  }
+  return false;
+}
+
+// ---------- API 调用 ----------
+function fillTemplate(tpl, params) {
+  return String(tpl || '').replace(/\{(\w+)\}/g, function (_, k) {
+    if (params[k] == null) return '';
+    var v = String(params[k]);
+    // 只 encode 会破坏 URL 语法的字符: 空格/#/? 等；保留逗号/斜杠/字母数字
+    return v.replace(/[\s#?&+%]/g, function (c) { return encodeURIComponent(c); });
+  });
+}
+
+function callEndpointRaw(endpoint, params) {
+  var base = SITE.bases[endpoint.base];
+  if (!base) { console.log('[s2s] endpoint ' + endpoint.name + ' base ' + endpoint.base + ' 未定义'); return null; }
+  var query = fillTemplate(endpoint.query, params);
+  var mode = pickMode(endpoint);
+  var url = signUrl(base, endpoint.path, query, mode);
+  if (url == null) {
+    // 签名依赖没就绪（例 cert 模式 BOOT 缺）→ 换个 mode
+    if (SITE.signing && SITE.signing.modes) {
+      for (var mi = 0; mi < SITE.signing.modes.length; mi++) {
+        var m2 = SITE.signing.modes[mi];
+        if (m2 === mode) continue;
+        var url2 = signUrl(base, endpoint.path, query, m2);
+        if (url2) { url = url2; break; }
+      }
+    }
+    if (url == null) return null;
+  }
+  var hdr = HDR;
+  if (endpoint.headers) { hdr = {}; for (var k in HDR) hdr[k] = HDR[k]; for (var k2 in endpoint.headers) hdr[k2] = endpoint.headers[k2]; }
+  // 应用 proxy（GEO block 绕过）
+  var wrapped = wrapProxy(url, endpoint.base, hdr);
+  url = wrapped.url; hdr = wrapped.hdr;
+  var opt = { headers: hdr };
+  if (endpoint.method === 'POST') { opt.method = 'POST'; opt.body = fillTemplate(endpoint.body || '', params); }
+  try {
+    var res = req(url, opt);
+    var body = (res && res.content) || res;
+    var j = typeof body === 'string' ? JSON.parse(body) : body;
+    return j;
+  } catch (e) {
+    console.log('[s2s] ' + endpoint.name + ' 异常: ' + e.message);
+    return null;
+  }
+}
+
+/** 高级 API 调用：auto 模式在首选失败时试 fallback */
+function callEndpoint(endpoint, params) {
+  var raw = callEndpointRaw(endpoint, params);
+  // 判定成功：优先看 data.code === 0（多数 API 结构）；
+  // 兼容 data 顶层就是数据的情况：只要 data 存在就算成功
+  if (raw && raw.data) {
+    if (raw.data.code === 0 || raw.data.code === undefined) return raw.data;
+  }
+  // 失败：auto 模式尝试用其他签名模式
+  if (endpoint.sign_mode === 'auto' && SITE.signing && SITE.signing.modes.length > 1) {
+    // 找当前用的是哪个 mode，试下一个
+    var curMode = pickMode(endpoint);
+    var altMode = null;
+    for (var mi = 0; mi < SITE.signing.modes.length; mi++) {
+      if (SITE.signing.modes[mi] !== curMode) { altMode = SITE.signing.modes[mi]; break; }
+    }
+    if (altMode) {
+      // 临时改 endpoint 的 sign_mode 指定为 alt
+      var epAlt = {}; for (var k in endpoint) epAlt[k] = endpoint[k];
+      epAlt.sign_mode = altMode.name;
+      console.log('[s2s] ' + endpoint.name + ' 首选失败(code=' + (raw && raw.data && raw.data.code) + '), 试 ' + altMode.name);
+      var raw2 = callEndpointRaw(epAlt, params);
+      if (raw2 && raw2.data && (raw2.data.code === 0 || raw2.data.code === undefined)) return raw2.data;
+      console.log('[s2s] ' + endpoint.name + ' fallback 也失败: code=' + (raw2 && raw2.data && raw2.data.code) + ' msg=' + (raw2 && raw2.data && raw2.data.msg));
+    }
+  } else if (raw && raw.data) {
+    console.log('[s2s] ' + endpoint.name + ' code=' + raw.data.code + ' msg=' + raw.data.msg);
+  } else {
+    console.log('[s2s] ' + endpoint.name + ' 无响应');
+  }
+  return null;
+}
+
+/** 找 endpoint 对象 */
+function findEndpoint(name) {
+  for (var i = 0; i < SITE.endpoints.length; i++) {
+    if (SITE.endpoints[i].name === name) return SITE.endpoints[i];
+  }
+  return null;
+}
+
+// ---------- vod 映射 ----------
+function itemToVod(item, mappings) {
+  var m = mappings || SITE.mappings;
+  var id = pickField(item, m.vod_id);
+  var name = pickField(item, m.vod_name);
+  var pic = pickField(item, m.vod_pic);
   return {
-    vod_id: id,
-    vod_name: it.title,
-    vod_pic: pic,
-    vod_year: it.year ? ('' + it.year) : '',
-    vod_area: it.regional || '',
-    vod_remarks: remarks,
+    vod_id: id ? String(id) : '',
+    vod_name: name ? String(name) : '',
+    vod_pic: pic ? String(pic) : '',
+    vod_year: pickField(item, m.vod_year) + '',
+    vod_area: pickField(item, m.vod_area) + '',
+    vod_actor: joinIfArr(pickField(item, m.vod_actor)),
+    vod_director: joinIfArr(pickField(item, m.vod_director)),
+    vod_content: pickField(item, m.vod_content) + '',
+    vod_remarks: pickField(item, m.vod_remarks) + '',
   };
 }
 
+function joinIfArr(v) {
+  if (Array.isArray(v)) return v.join(',');
+  return v == null ? '' : String(v);
+}
+
+
+// ---------- T3 接口 ----------
+
 function init(cfg) {
-  console.log('[s2s] aiyifan api spider init (cert+timestamp 双模)');
-  ensureBootstrap();
+  console.log('[s2s] init: aiyifan (爱壹帆)');
+  ensureBoot();
 }
 
 function home(filter) {
-  var classes = CATS.map(function (c) { return { type_id: c.id, type_name: c.name }; });
+  var classes = SITE.categories.map(function (c) { return { type_id: c.id, type_name: c.name }; });
   return JSON.stringify({ class: classes });
 }
 
+function loadHome() {
+  var now = Date.now();
+  if (HOME_CACHE && now - HOME_AT < 600000) return HOME_CACHE;
+  var ep = findEndpoint('home');
+  if (!ep) return null;
+  var d = callEndpoint(ep, {});
+  if (!d) return null;
+  HOME_CACHE = d; HOME_AT = now;
+  return d;
+}
+
 function homeVod() {
-  var agg = loadAll();
-  var list = (agg && agg.filmList ? agg.filmList : []).slice(0, 20).map(toVod);
+  var d = loadHome();
+  if (!d) return JSON.stringify({ list: [] });
+  var firstCat = SITE.categories[0];
+  var list = extractCategoryList(d, firstCat).slice(0, 20).map(function (it) { return itemToVod(it); });
   return JSON.stringify({ list: list });
 }
 
-function loadAll() {
-  var now = Date.now();
-  if (CACHE && now - CACHE_AT < 600000) return CACHE;
-  // size=100 = 约 460KB，size=1000 = 4.6MB 会挂 QuickJS
-  var info = apiGet(API, 'v3/home/getAllVideo', 'cinema=1&page=1&size=100&region=SG');
-  var agg = info && info[0] ? info[0] : null;
-  if (agg) { CACHE = agg; CACHE_AT = now; }
-  return agg;
+/** 从 home 响应里拿某个分类的列表 */
+function extractCategoryList(homeData, cat) {
+  if (cat.kind === 'static') {
+    var arr = jpath(homeData, cat.source_field);
+    return Array.isArray(arr) ? arr : [];
+  }
+  return []; // endpoint 类别在 category() 里处理
 }
 
 function category(tid, pg, filter, extend) {
-  if (!pg) pg = 1;
+  pg = Number(pg) || 1;
   var PAGE = 30;
-  // 找到 CATS 里对应的 cid
-  var cid = '';
-  for (var i = 0; i < CATS.length; i++) {
-    if (CATS[i].id === tid) { cid = CATS[i].cid; break; }
-  }
-  if (!cid) {
-    // 未知 tid → 回退到聚合缓存分页
-    var agg0 = loadAll();
-    var all0 = (agg0 && agg0[tid]) ? agg0[tid] : [];
-    var st = (pg - 1) * PAGE;
-    return JSON.stringify({ list: all0.slice(st, st+PAGE).map(toVod), page: pg, pagecount: Math.max(1, Math.ceil(all0.length/PAGE)), limit: PAGE, total: all0.length });
-  }
-  // list/Search 支持真正翻页
-  var q = 'cinema=1&page=' + pg + '&size=' + PAGE +
-    '&orderby=0&desc=1&cid=' + cid + '&isserial=-1&isIndex=-1&isfree=-1';
-  var info = apiGet(API, 'api/list/Search', q);
+  var cat = null;
+  for (var i = 0; i < SITE.categories.length; i++) if (SITE.categories[i].id === tid) cat = SITE.categories[i];
+  if (!cat) return JSON.stringify({ list: [], page: pg, pagecount: 1, limit: PAGE, total: 0 });
+
   var list = [];
   var total = 0;
-  var maxpage = 1;
-  if (info && info[0]) {
-    list = (info[0].result || []).map(toVod);
-    total = info[0].recordcount || list.length;
-    maxpage = info[0].maxpage || Math.max(1, Math.ceil(total / PAGE));
+  var pagecount = 1;
+
+  if (cat.kind === 'static') {
+    // 从 home 缓存切片
+    var d = loadHome();
+    var all = d ? extractCategoryList(d, cat) : [];
+    total = all.length;
+    pagecount = Math.max(1, Math.ceil(all.length / PAGE));
+    var start = (pg - 1) * PAGE;
+    list = all.slice(start, start + PAGE).map(function (it) { return itemToVod(it); });
+  } else {
+    // endpoint 类别：调对应端点
+    var ep = findEndpoint(cat.endpoint);
+    if (ep) {
+      var params = {};
+      if (cat.params) for (var k in cat.params) params[k] = cat.params[k];
+      params.page = pg; params.pg = pg;
+      var d2 = callEndpoint(ep, params);
+      if (d2 && ep.response && ep.response.list) {
+        var raw = pickResp(d2, ep.response.list);
+        if (Array.isArray(raw)) list = raw.map(function (it) { return itemToVod(it); });
+      }
+    }
   }
-  return JSON.stringify({
-    list: list, page: pg, pagecount: maxpage, limit: PAGE, total: total,
-  });
+
+  return JSON.stringify({ list: list, page: pg, pagecount: pagecount, limit: PAGE, total: total });
 }
 
 function detail(id) {
-  // 1. 先拉 detail 拿元数据 + cid（languagesplaylist 需要 cid）
+  var epD = findEndpoint('detail');
+  var epE = findEndpoint('episodes');
   var meta = null;
-  var detailQ = 'cinema=1&device=1&player=CkPlayer&tech=HLS&lang=cns&v=1&id=' + id + '&region=SG';
-  var dInfo = apiGet(API, 'v3/video/detail', detailQ);
-  if (dInfo && dInfo[0]) {
-    meta = dInfo[0];
-    // cid 是 "0,1,4,137" 这种真实路径, publishNavKey 是 "今年" 这种标签, 用 cid
-    var cid = meta.cid || '0,1,4';
-    DETAIL_CACHE[id] = { cid: cid, meta: meta };
-  } else {
-    // detail 失败: 用聚合缓存兜底
-    var agg = loadAll();
-    if (agg) {
-      for (var i = 0; i < CATS.length && !meta; i++) {
-        var arr = agg[CATS[i].id] || [];
-        for (var k = 0; k < arr.length; k++) {
-          if (arr[k].key === id || arr[k].contxt === id) { meta = arr[k]; break; }
-        }
+  var epCid = '';
+  if (epD) {
+    var d = callEndpoint(epD, { id: id });
+    if (d && epD.response && epD.response.item) {
+      meta = pickResp(d, epD.response.item);
+      // 尝试从 meta 里抓 cid（episodes 端点可能需要）
+      epCid = (meta && (meta.publishNavKey || meta.cid || '')) || '';
+      // publishNavKey 可能是名字, 不是路径, 优先 cid 字段
+      if (meta && meta.cid) epCid = meta.cid;
+    }
+  }
+
+  var epList = [];
+  if (epE) {
+    var d2 = callEndpoint(epE, { id: id, vid: id, cid: epCid });
+    if (d2 && epE.response && epE.response.episodes) {
+      var raw = pickResp(d2, epE.response.episodes);
+      if (Array.isArray(raw)) {
+        var epMap = SITE.mappings;
+        epList = raw.map(function (e) {
+          return {
+            name: pickField(e, epMap.ep_name || ['name', 'title']),
+            key: pickField(e, epMap.ep_id || ['key', 'id']),
+          };
+        }).filter(function (e) { return e.name && e.key; });
       }
     }
   }
 
-  // 2. 拉剧集列表
-  var epList = [];
-  var cidForEp = (DETAIL_CACHE[id] && DETAIL_CACHE[id].cid) || (meta && meta.cid) || '0,1,4';
-  var lplQ = 'cinema=1&vid=' + id + '&lsk=1&taxis=0&cid=' + cidForEp;
-  var lplInfo = apiGet(API, 'v3/video/languagesplaylist', lplQ);
-  if (lplInfo && lplInfo[0] && lplInfo[0].playList) {
-    epList = lplInfo[0].playList;
-  }
-
-  // 3. 组装 vod_play_url: "名称$集key#名称$集key#..."
   var vodPlayUrl;
   if (epList.length) {
-    var parts = epList.map(function (e) { return e.name + '$' + e.key; });
-    vodPlayUrl = parts.join('#');
+    vodPlayUrl = epList.map(function (e) { return e.name + '$' + e.key; }).join('#');
   } else {
-    // 单集/电影: 用专辑 key 播
     vodPlayUrl = '正片$' + id;
   }
 
-  var vod = {
-    vod_id: id,
-    vod_name: meta ? meta.title : id,
-    vod_pic: meta ? (meta.image || meta.imgPath || '') : '',
-    vod_year: meta && (meta.year || meta.post_Year) ? ('' + (meta.year || meta.post_Year)) : '',
-    vod_area: meta ? (meta.regional || '') : '',
-    vod_actor: meta ? (meta.starring || (meta.stars && meta.stars.join(',')) || '') : '',
-    vod_director: meta ? (meta.directed || (meta.directors && meta.directors.join(',')) || '') : '',
-    vod_content: meta ? (meta.shortDes || meta.contxt || '') : '',
-    vod_remarks: meta && meta.serialCount ? ('共' + meta.serialCount + '集 更新至' + meta.lastName) : '',
-    type_name: meta ? (meta.channel || meta.videoType || '') : '',
-    vod_play_from: 'aiyifan',
-    vod_play_url: vodPlayUrl,
-  };
+  var vod = itemToVod(meta || { key: id });
+  vod.vod_id = id;
+  vod.vod_play_from = SITE.name;
+  vod.vod_play_url = vodPlayUrl;
   return JSON.stringify({ list: [vod] });
 }
 
-function search(wd, quick, pg) {
-  if (!pg) pg = 1;
-  var q = 'tags=' + encodeURIComponent(wd) +
-    '&orderby=4&page=' + pg + '&size=20&desc=0&isserial=-1&istitle=true';
-  var info = apiGet(RANK, 'v3/list/briefsearch', q);
-  var list = [];
-  if (info && info[0] && info[0].result) {
-    list = info[0].result.map(toVod);
-  }
-  return JSON.stringify({ list: list });
-}
-
 function play(flag, id, flags) {
-  // 切集时 a=0, 首播 a=1 —— 但 a=0 更保险（都能通）
-  var q = 'cinema=1&id=' + id +
-    '&a=0&lang=none&usersign=1&region=SG&device=1&isMasterSupport=1';
-  var info = apiGet(API, 'v3/video/play', q);
+  var ep = findEndpoint('play');
+  if (!ep) return JSON.stringify({ parse: 1, url: SITE.site_url + '/play/' + id });
+  var d = callEndpoint(ep, { id: id });
   var url = '';
   var isHls = false;
-  if (info && info[0]) {
-    var d = info[0];
-    // flvPathList[0] 通常是广告 mp4, [1] 是真 m3u8。
-    // 优先级: clarity(enabled=true) → 任 List 里 isHls=true → 任意非空
-    var pickReal = function (arr) {
-      if (!arr || !arr.length) return null;
-      for (var i = 0; i < arr.length; i++) {
-        if (arr[i] && arr[i].result && arr[i].isHls === true) return arr[i];
-      }
-      for (var j = 0; j < arr.length; j++) {
-        if (arr[j] && arr[j].result) return arr[j];
-      }
-      return null;
-    };
-    var picked = null;
-    if (d.clarity && d.clarity.length) {
-      for (var k = 0; k < d.clarity.length; k++) {
-        var c = d.clarity[k];
-        if (c && c.isEnabled && c.path && c.path.result) { picked = c.path; break; }
-      }
+  if (d && ep.response && ep.response.play_url) {
+    var picked = pickResp(d, ep.response.play_url);
+    if (picked) {
+      if (typeof picked === 'string') url = picked;
+      else if (picked.result) { url = picked.result; isHls = !!picked.isHls; }
+      else if (picked.path && picked.path.result) { url = picked.path.result; isHls = !!picked.path.isHls; }
     }
-    if (!picked) picked = pickReal(d.hlsPathList) || pickReal(d.flvPathList) || pickReal(d.mp4PathList);
-    if (picked) { url = picked.result; isHls = !!picked.isHls; }
   }
   if (url) {
-    console.log('[s2s] play 命中(' + (isHls ? 'HLS' : 'MP4') + '): ' + url.substring(0, 80));
-    // Warmup: CDN 边缘首次冷启动可能 520, 预热一次让 ExoPlayer 拿到 200
-    if (isHls) {
-      try {
-        var warmHdr = { 'User-Agent': HDR['User-Agent'], 'Referer': SITE + '/' };
-        for (var w = 0; w < 3; w++) {
-          var wr = req(url, { headers: warmHdr });
-          var wc = (wr && (wr.code || wr.status)) || 0;
-          console.log('[s2s] warmup ' + (w+1) + ': HTTP ' + wc);
-          if (wc >= 200 && wc < 400) break;
-        }
-      } catch (e) { console.log('[s2s] warmup skip: ' + e); }
+    console.log('[s2s] play 命中(' + (isHls ? 'HLS' : url.match(/\.m3u8/) ? 'HLS' : 'MP4') + '): ' + url.substring(0, 80));
+    var hdr = { 'User-Agent': HDR['User-Agent'], 'Referer': SITE.site_url + '/' };
+    // 播流是否也走 proxy（受 SITE.proxy.proxy_media 控制）
+    var wrappedMedia = wrapMediaUrl(url);
+    if (wrappedMedia.url !== url) {
+      console.log('[s2s] play 走 proxy: ' + wrappedMedia.url.substring(0, 80));
+      url = wrappedMedia.url;
+      if (wrappedMedia.hdr) for (var mk in wrappedMedia.hdr) hdr[mk] = wrappedMedia.hdr[mk];
     }
-    return JSON.stringify({
-      parse: 0, url: url,
-      header: { 'User-Agent': HDR['User-Agent'], 'Referer': SITE + '/' },
-    });
+    return JSON.stringify({ parse: 0, url: url, header: hdr });
   }
-  // API 没给地址（配额耗尽/临时错误）→ 退回前端页嗅探
-  console.log('[s2s] play API 无地址, 退回嗅探');
-  return JSON.stringify({
-    parse: 1,
-    url: SITE + '/play/' + id,
-    header: { 'User-Agent': HDR['User-Agent'], 'Referer': SITE + '/' },
-  });
+  // 兜底嗅探
+  var fbUrl = SITE.play_result && SITE.play_result.on_miss ?
+    SITE.play_result.on_miss.url_template
+      .replace('{site_url}', SITE.site_url)
+      .replace('{id}', id) :
+    SITE.site_url + '/play/' + id;
+  console.log('[s2s] play 无地址, 退回嗅探: ' + fbUrl);
+  return JSON.stringify({ parse: 1, url: fbUrl, header: { 'User-Agent': HDR['User-Agent'], 'Referer': SITE.site_url + '/' } });
+}
+
+function search(wd, quick, pg) {
+  pg = Number(pg) || 1;
+  var ep = findEndpoint('search');
+  if (!ep) return JSON.stringify({ list: [] });
+  var d = callEndpoint(ep, { wd: wd, keyword: wd, tags: wd, page: pg, pg: pg });
+  var list = [];
+  if (d && ep.response && ep.response.list) {
+    var raw = pickResp(d, ep.response.list);
+    if (Array.isArray(raw)) list = raw.map(function (it) { return itemToVod(it); });
+  }
+  return JSON.stringify({ list: list });
 }
 
 function isVideoFormat(url) { return /\.(m3u8|mp4|flv|mkv|ts)(\?|$)/i.test(url); }
 function manualVideoCheck() { return false; }
+
 
 export function __jsEvalReturn() {
   return {

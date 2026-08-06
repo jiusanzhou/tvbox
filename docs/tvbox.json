@@ -3,8 +3,8 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "195733b",
-    "generated_at": "2026-08-05T16:10:25.926Z",
+    "commit": "9410044",
+    "generated_at": "2026-08-06T04:02:31.942Z",
     "site_count": 3,
     "sites": [
       {
@@ -15,13 +15,13 @@
           "signed",
           "proxied"
         ],
-        "updated_at": "2026-08-05T16:10:21.473Z"
+        "updated_at": "2026-08-05T13:59:42.823Z"
       },
       {
         "key": "ddys",
         "hash": "55ba6416",
         "tags": [],
-        "updated_at": "2026-08-05T16:10:21.473Z"
+        "updated_at": "2026-08-05T01:26:56.783Z"
       },
       {
         "key": "ffzy",
@@ -31,7 +31,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-05T16:10:21.473Z"
+        "updated_at": "2026-08-05T02:21:27.707Z"
       }
     ]
   },
