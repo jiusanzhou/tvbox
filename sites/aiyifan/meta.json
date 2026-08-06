@@ -1,6 +1,6 @@
 {
   "key": "aiyifan_api",
-  "name": "🎬 爱壹帆",
+  "name": "🌏 爱壹帆 (海外)",
   "type": 3,
   "spider": "sites/aiyifan/spider.js",
   "searchable": 1,
@@ -15,12 +15,12 @@
     "纪录片"
   ],
   "source": "https://www.aiyifan.tv",
-  "note": "API 型 spider, cert+timestamp 双模签名, 挂 cf-proxy 绕 CF GEO block (国内可用)",
+  "note": "海外专用 — 站点做了 CN GEO block, 需梯子/海外 IP. spider 挂了 cf-proxy 兜底但国内网络仍可能不稳",
   "probes": [
     "https://www.aiyifan.tv/"
   ],
   "tags": [
-    "cn",
+    "overseas-only",
     "signed",
     "proxied"
   ]
