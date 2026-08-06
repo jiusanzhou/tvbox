@@ -1,16 +1,16 @@
 {
-  "generated_at": "2026-08-06T15:46:55.214Z",
+  "generated_at": "2026-08-06T23:54:47.406Z",
   "results": [
     {
       "key": "aiyifan",
-      "name": "🎬 爱壹帆",
+      "name": "🌏 爱壹帆 (海外)",
       "ok": true,
       "checks": {
         "contract": true,
         "hosts": {
           "https://www.aiyifan.tv/": {
             "code": 200,
-            "ms": 992,
+            "ms": 1030,
             "ok": true
           }
         }
@@ -26,12 +26,12 @@
         "hosts": {
           "https://ddys.lat/data/manifest.json": {
             "code": 200,
-            "ms": 178,
+            "ms": 60,
             "ok": true
           },
           "https://ddys.lat/data/list.json": {
             "code": 200,
-            "ms": 67,
+            "ms": 51,
             "ok": true
           }
         }
