@@ -3,8 +3,8 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "5254db6",
-    "generated_at": "2026-08-06T15:44:01.535Z",
+    "commit": "3f30afa",
+    "generated_at": "2026-08-06T15:46:53.812Z",
     "site_count": 3,
     "sites": [
       {
@@ -15,13 +15,13 @@
           "signed",
           "proxied"
         ],
-        "updated_at": "2026-08-06T15:36:55.804Z"
+        "updated_at": "2026-08-06T15:46:49.011Z"
       },
       {
         "key": "ddys",
         "hash": "55ba6416",
         "tags": [],
-        "updated_at": "2026-08-05T01:26:56.783Z"
+        "updated_at": "2026-08-06T15:46:49.012Z"
       },
       {
         "key": "ffzy",
@@ -31,7 +31,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-05T02:21:27.707Z"
+        "updated_at": "2026-08-06T15:46:49.012Z"
       }
     ]
   },
@@ -42,7 +42,7 @@
       "key": "aiyifan_api",
       "name": "🎬 爱壹帆",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=801cacd7&t=1786031041482",
+      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=801cacd7&t=1786031213805",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -59,7 +59,7 @@
       "key": "ddys",
       "name": "🎞 低端影视",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=55ba6416&t=1786031041487",
+      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=55ba6416&t=1786031213806",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,
