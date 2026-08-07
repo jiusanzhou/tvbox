@@ -1,5 +1,5 @@
 // site2source-ext — 通用 SiteModel T3 spider
-// Generated: 2026-08-06T15:36:42.363Z
+// Generated: 2026-08-07T00:59:38.031Z
 // Site: 爱壹帆 (aiyifan)
 // URL: https://www.aiyifan.tv
 // 签名模式: cert / timestamp
@@ -637,7 +637,15 @@ function callEndpointRaw(endpoint, params) {
   if (endpoint.method === 'POST') { opt.method = 'POST'; opt.body = fillTemplate(endpoint.body || '', params); }
   try {
     var res = req(url, opt);
-    var body = (res && res.content) || res;
+    // res 可能是 { content: '...', status: 200 } 或直接返 body 字符串
+    // 注意: res.content 可能是空字符串 "" (falsy 但语义有效, 不能用 || 兜底成 res 自身)
+    var body;
+    if (res && typeof res === 'object' && 'content' in res) {
+      body = res.content;
+    } else {
+      body = res;
+    }
+    if (!body) return null;
     var j = typeof body === 'string' ? JSON.parse(body) : body;
     return j;
   } catch (e) {

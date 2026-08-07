@@ -45,7 +45,15 @@ function log(msg) { try { console.log('[ddys] ' + msg); } catch (_) {} }
 function fetchJson(path) {
   try {
     var res = req(BASE + path, { headers: HDR });
-    var body = res.content || res;
+    // res 可能是 { content: '...', status: 200 } 或直接返 body 字符串
+    // 注意: res.content 可能是 空字符串 "" (falsy 但有意义), 不能用 || 兜底成 res 本身
+    var body;
+    if (res && typeof res === 'object' && 'content' in res) {
+      body = res.content;  // 明确取 content, 即使是空字符串
+    } else {
+      body = res;
+    }
+    if (!body) return null;  // 空响应 (还没就绪 or 真的空) → null, 不要返 {content:""}
     return typeof body === 'string' ? JSON.parse(body) : body;
   } catch (e) {
     log('fetch fail ' + path + ': ' + e);
