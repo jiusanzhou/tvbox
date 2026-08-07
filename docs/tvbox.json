@@ -3,9 +3,9 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "4aadd76",
-    "generated_at": "2026-08-07T01:01:49.488Z",
-    "site_count": 3,
+    "commit": "27842ab",
+    "generated_at": "2026-08-07T02:24:45.507Z",
+    "site_count": 8,
     "sites": [
       {
         "key": "aiyifan_api",
@@ -15,13 +15,23 @@
           "signed",
           "proxied"
         ],
-        "updated_at": "2026-08-07T01:01:45.725Z"
+        "updated_at": "2026-08-07T01:01:37.157Z"
+      },
+      {
+        "key": "bfzy",
+        "hash": "8e529b20",
+        "tags": [
+          "cn",
+          "maccms"
+        ],
+        "type": 1,
+        "updated_at": "2026-08-07T02:24:33.746Z"
       },
       {
         "key": "ddys",
         "hash": "6e848abf",
         "tags": [],
-        "updated_at": "2026-08-07T01:01:45.725Z"
+        "updated_at": "2026-08-07T01:01:37.158Z"
       },
       {
         "key": "ffzy",
@@ -31,7 +41,47 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-07T01:01:45.726Z"
+        "updated_at": "2026-08-05T02:21:27.707Z"
+      },
+      {
+        "key": "haohua",
+        "hash": "f11a10b0",
+        "tags": [
+          "cn",
+          "maccms"
+        ],
+        "type": 1,
+        "updated_at": "2026-08-07T02:24:34.020Z"
+      },
+      {
+        "key": "hongniu",
+        "hash": "c4cb6351",
+        "tags": [
+          "cn",
+          "maccms"
+        ],
+        "type": 1,
+        "updated_at": "2026-08-07T02:24:33.834Z"
+      },
+      {
+        "key": "liangzi",
+        "hash": "c9516047",
+        "tags": [
+          "cn",
+          "maccms"
+        ],
+        "type": 1,
+        "updated_at": "2026-08-07T02:24:34.099Z"
+      },
+      {
+        "key": "yinghua",
+        "hash": "8242bff6",
+        "tags": [
+          "cn",
+          "maccms"
+        ],
+        "type": 1,
+        "updated_at": "2026-08-07T02:24:33.939Z"
       }
     ]
   },
@@ -42,7 +92,7 @@
       "key": "aiyifan_api",
       "name": "🌏 爱壹帆 (海外)",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=f5a26a1a&t=1786064509482",
+      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=f5a26a1a&t=1786069485459",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -56,10 +106,19 @@
       ]
     },
     {
+      "key": "bfzy",
+      "name": "🔥 暴风",
+      "type": 1,
+      "api": "https://bfzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
       "key": "ddys",
       "name": "🎞 低端影视",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=6e848abf&t=1786064509482",
+      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=6e848abf&t=1786069485464",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,
@@ -76,6 +135,42 @@
       "name": "⚡ 非凡资源",
       "type": 1,
       "api": "https://cj.ffzyapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "haohua",
+      "name": "🦁 豪华",
+      "type": 1,
+      "api": "https://www.haohuazy.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "hongniu",
+      "name": "🐂 红牛",
+      "type": 1,
+      "api": "https://www.hongniuzy3.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "liangzi",
+      "name": "🔬 量子",
+      "type": 1,
+      "api": "https://cj.lziapi.com/api.php/provide/vod",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "yinghua",
+      "name": "🌸 樱花",
+      "type": 1,
+      "api": "https://api.apiyhzy.com/api.php/provide/vod",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1

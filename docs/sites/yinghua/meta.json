@@ -1,0 +1,18 @@
+{
+  "key": "yinghua",
+  "name": "🌸 樱花",
+  "type": 1,
+  "api": "https://api.apiyhzy.com/api.php/provide/vod",
+  "searchable": 1,
+  "quickSearch": 1,
+  "filterable": 1,
+  "tags": [
+    "cn",
+    "maccms"
+  ],
+  "source": "https://api.apiyhzy.com",
+  "note": "10w 部, 动漫资源强",
+  "probes": [
+    "https://api.apiyhzy.com/api.php/provide/vod?ac=list"
+  ]
+}

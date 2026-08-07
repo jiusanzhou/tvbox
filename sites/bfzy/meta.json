@@ -1,0 +1,18 @@
+{
+  "key": "bfzy",
+  "name": "🔥 暴风",
+  "type": 1,
+  "api": "https://bfzyapi.com/api.php/provide/vod",
+  "searchable": 1,
+  "quickSearch": 1,
+  "filterable": 1,
+  "tags": [
+    "cn",
+    "maccms"
+  ],
+  "source": "https://bfzyapi.com",
+  "note": "15w 部, 电影/连续剧/综艺主分类都有货, 播放走 baofeng9 CDN",
+  "probes": [
+    "https://bfzyapi.com/api.php/provide/vod?ac=list"
+  ]
+}

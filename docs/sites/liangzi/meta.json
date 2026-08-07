@@ -1,0 +1,18 @@
+{
+  "key": "liangzi",
+  "name": "🔬 量子",
+  "type": 1,
+  "api": "https://cj.lziapi.com/api.php/provide/vod",
+  "searchable": 1,
+  "quickSearch": 1,
+  "filterable": 1,
+  "tags": [
+    "cn",
+    "maccms"
+  ],
+  "source": "https://cj.lziapi.com",
+  "note": "14w 部, 大量新剧新番, 播放走 cdnlz22",
+  "probes": [
+    "https://cj.lziapi.com/api.php/provide/vod?ac=list"
+  ]
+}

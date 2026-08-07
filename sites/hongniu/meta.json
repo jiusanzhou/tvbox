@@ -1,0 +1,18 @@
+{
+  "key": "hongniu",
+  "name": "🐂 红牛",
+  "type": 1,
+  "api": "https://www.hongniuzy3.com/api.php/provide/vod",
+  "searchable": 1,
+  "quickSearch": 1,
+  "filterable": 1,
+  "tags": [
+    "cn",
+    "maccms"
+  ],
+  "source": "https://www.hongniuzy3.com",
+  "note": "10w 部, 电影+综艺齐全, 播放走 bfvvs CDN",
+  "probes": [
+    "https://www.hongniuzy3.com/api.php/provide/vod?ac=list"
+  ]
+}
