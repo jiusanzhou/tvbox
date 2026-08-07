@@ -27,11 +27,10 @@ https://zoe.im/tvbox/tvbox.json
 
 ## 📡 直播源
 
-`shared/lives.json` 内置 8 组直播源，客户端里可切换：
+`shared/lives.json` 内置 7 组直播源，客户端里可切换：
 
 | 名字 | 上游 | 说明 |
 |---|---|---|
-| 📡 央视卫视 | fanmingming/live | 央视 + 卫视 |
 | 🌍 全球直播 | YueChan/Live Global.m3u | 全球主流 |
 | 📺 IPTV 综合 | YueChan/Live IPTV.m3u | 综合 IPTV |
 | 🇭🇰 港澳台 | YueChan/Live GNTV.m3u | 港澳台 |

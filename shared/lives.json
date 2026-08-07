@@ -1,10 +1,5 @@
 [
   {
-    "name": "📡 央视卫视",
-    "type": 0,
-    "url": "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/global.m3u"
-  },
-  {
     "name": "🌍 全球直播",
     "type": 0,
     "url": "https://zoe.im/tvbox/shared/lives/Global.m3u"
