@@ -1,0 +1,101 @@
+#EXTM3U
+#EXTINF:-1 group-title="央视频道",CGTN英语
+https://english-livebkali.cgtn.com/live/encgtn_0.m3u8
+#EXTINF:-1 group-title="央视频道",CGTN纪录
+http://english-livebkali.cgtn.com/live/doccgtn_0.m3u8
+#EXTINF:-1 tvg-name="民视新闻" tvg-logo="https://epg.112114.xyz/logo/民视新闻.png" group-title="港台频道",民视新闻
+http://rihou.cc:555/tv/%E6%B0%91%E8%A7%86%E6%96%B0%E9%97%BB
+#EXTINF:-1 tvg-name="公视" tvg-logo="https://epg.112114.xyz/logo/公视.png" group-title="港台频道",公视高清
+http://211.72.174.95:8116/0.ts
+#EXTINF:-1 tvg-name="中视" tvg-logo="https://epg.112114.xyz/logo/中视.png" group-title="港台频道",中视高清
+http://220.135.241.47:8301/0.ts
+#EXTINF:-1 tvg-name="民视" tvg-logo="https://epg.112114.xyz/logo/民视.png" group-title="港台频道",民视高清
+http://211.72.174.95:8115/0.ts
+#EXTINF:-1 tvg-name="华视" tvg-logo="https://epg.112114.xyz/logo/华视.png" group-title="港台频道",华视高清
+http://220.135.241.47:8317/0.ts
+#EXTINF:-1 tvg-name="台视" tvg-logo="https://epg.112114.xyz/logo/台视.png" group-title="港台频道",台视高清
+http://211.72.174.95:8112/0.ts
+#EXTINF:-1 tvg-name="华视" tvg-logo="https://epg.112114.xyz/logo/华视.png" group-title="港台频道",华视教体
+http://220.135.241.47:8318/0.ts
+#EXTINF:-1 tvg-name="台视财经" tvg-logo="https://epg.112114.xyz/logo/台视财经.png" group-title="港台频道",台视财经
+http://220.135.241.47:8315/0.ts
+#EXTINF:-1 tvg-name="Taiwan+" tvg-logo="https://epg.112114.xyz/logo/Taiwan+.png" group-title="港台频道",Taiwan+
+https://fastly.live.brightcove.com/6385235869112/ap-northeast-1/6282251407001/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJob3N0IjoiaWU4OWZvLmVncmVzcy5pdjNqZDgiLCJhY2NvdW50X2lkIjoiNjI4MjI1MTQwNzAwMSIsImVobiI6ImZhc3RseS5saXZlLmJyaWdodGNvdmUuY29tIiwiaXNzIjoiYmxpdmUtcGxheWJhY2stc291cmNlLWFwaSIsInN1YiI6InBhdGhtYXB0b2tlbiIsImF1ZCI6WyI2MjgyMjUxNDA3MDAxIl0sImp0aSI6IjYzODUyMzU4NjkxMTIifQ.4c-V1Ks3nBx9nRljtn5-jCNP_nLuWBbk-pw9BFWZfMQ/playlist-hls.m3u8
+#EXTINF:-1 group-title="地方频道",河北4K
+https://event.pull.hebtv.com:443/live/live101.m3u8
+#EXTINF:-1 group-title="地方频道",看东方4K
+http://bp-resource-dfl.bestv.cn/148/3/video.m3u8
+#EXTINF:-1 group-title="地方频道",苏州4K
+https://live-auth.51kandianshi.com/szgd/csztv4k_4k.m3u8
+#EXTINF:-1 group-title="地方频道",钱江都市
+http://ali-xwl.cztv.com/live/channel021080Plxw.m3u8
+#EXTINF:-1 group-title="地方频道",经济生活
+http://ali-xwl.cztv.com/live/channel031080Plxw.m3u8
+#EXTINF:-1 group-title="地方频道",教科影院
+http://ali-xwl.cztv.com/live/channel041080Plxw.m3u8
+#EXTINF:-1 group-title="地方频道",民生休闲
+http://ali-xwl.cztv.com/live/channel061080Plxw.m3u8
+#EXTINF:-1 group-title="地方频道",浙江新闻
+http://ali-xwl.cztv.com/live/channel071080Plxw.m3u8
+#EXTINF:-1 group-title="地方频道",少儿频道
+http://ali-xwl.cztv.com/live/channel081080Plxw.m3u8
+#EXTINF:-1 group-title="地方频道",浙江国际
+http://ali-xwl.cztv.com/live/channel101080Plxw.m3u8
+#EXTINF:-1 group-title="地方频道",之江纪录
+http://ali-xwl.cztv.com/live/channel121080Pnew.m3u8
+#EXTINF:-1 group-title="地方频道",广州综合
+https://tencentplaygsm.gztv.com/live/zonghes.m3u8?txTime=65797c44&amp%3BtxSecret=7e4590b2320037d7ce49ce9eac2dd6c0
+#EXTINF:-1 group-title="地方频道",南国都市
+https://tencentplay.gztv.com/live/nanguodushi.m3u8?txSecret=550af55c0ea34ce492748481415b6dfa&txTime=1903e7b17de
+#EXTINF:-1 group-title="地方频道",苏州娱乐
+https://live-auth.51kandianshi.com/szgd/csztv4.m3u8
+#EXTINF:-1 group-title="地方频道",南宁新闻
+https://hls.nntv.cn/nnlive/XWZH_24.m3u8
+#EXTINF:-1 group-title="地方频道",南宁文旅
+https://hls.nntv.cn/nnlive/WLSH_24.m3u8
+#EXTINF:-1 group-title="地方频道",南宁娱乐
+http://hls.nntv.cn/nnlive/YSYL_244.m3u8
+#EXTINF:-1 group-title="地方频道",宁夏公共
+https://hls.ningxiahuangheyun.com/live/nxgg1M.m3u8
+#EXTINF:-1 group-title="地方频道",宁夏经济
+https://hls.ningxiahuangheyun.com/live/nxjj1M.m3u8
+#EXTINF:-1 group-title="地方频道",宁夏文旅
+https://hls.ningxiahuangheyun.com/live/nxwl1M.m3u8
+#EXTINF:-1 group-title="地方频道",宁夏少儿
+https://hls.ningxiahuangheyun.com/live/nxse1M.m3u8
+#EXTINF:-1 group-title="地方频道",云南都市
+https://hwapi.yntv.net/62hdvf/rjwt14.m3u8
+#EXTINF:-1 group-title="地方频道",云南娱乐
+https://hwapi.yntv.net/62hdvf/q9vs1b.m3u8
+#EXTINF:-1 tvg-id="内蒙古新闻综合" group-title="地方频道",新闻综合
+http://play1-qk.nmtv.cn/live/2316general.m3u8
+#EXTINF:-1 tvg-id="内蒙古经济生活" group-title="地方频道",经济生活
+http://play1-qk.nmtv.cn/live/2326general.m3u8
+#EXTINF:-1 tvg-id="内蒙古少儿" group-title="地方频道",少儿频道
+http://play1-qk.nmtv.cn/live/2327general.m3u8
+#EXTINF:-1 tvg-id="内蒙古文体娱乐" group-title="地方频道",文体娱乐
+http://play1-qk.nmtv.cn/live/2319general.m3u8
+#EXTINF:-1 tvg-id="内蒙古农牧" group-title="地方频道",农牧频道
+http://play1-qk.nmtv.cn/live/2329general.m3u8
+#EXTINF:-1 group-title="地方频道",梨园频道
+https://dxtx.hntv.tv/live/lypd.m3u8?txSecret=10c771842a0be59e8b575d765173ec96&txTime=7B923E0A&wsSecret=1966aa8a0405e1541cff782f56c75447&wsTime=1770400669
+#EXTINF:-1 group-title="地方频道",文物宝库
+https://dxtx.hntv.tv/live/wwbk.m3u8?txSecret=317b89626134fd6bea6e129455b5ff18&txTime=7C4C635C&wsSecret=87c5daf4f4c3a09fb4e4cce0843d4a1c&wsTime=1770400669
+#EXTINF:-1 group-title="地方频道",武术频道
+https://dxtx.hntv.tv/live/wssj.m3u8?txSecret=c38b4d31ba4c45c6babb5c47132123e3&txTime=7ABB976A&wsSecret=dfcdc24ac8a49ebd886337dc5cdc1568&wsTime=1770400669
+#EXTINF:-1 group-title="地方频道",河南曲艺
+https://dxtx.hntv.tv/live/jczy.m3u8?txSecret=e785008e49564e5e738439b4dd2ae68e&txTime=7C4C6207&wsSecret=3f9e1d6e5c78cea99a876ce40f13202b&wsTime=1770400669
+#EXTINF:-1 group-title="地方频道",绍兴公共
+http://live.shaoxing.com.cn/video/s10001-sxtv2/index.m3u8
+#EXTINF:-1 group-title="地方频道",文化影视
+http://live.shaoxing.com.cn/video/s10001-sxtv3/index.m3u8
+#EXTINF:-1 group-title="地方频道",文成综合
+http://l.cztvcloud.com/channels/lantian/SXwencheng1/720p.m3u8
+#EXTINF:-1 group-title="地方频道",萧山综合
+http://l.cztvcloud.com/channels/lantian/SXxiaoshan1/720p.m3u8
+#EXTINF:-1 group-title="地方频道",龙泉综合
+http://l.cztvcloud.com/channels/lantian/SXlongquan1/720p.m3u8
+#EXTINF:-1 group-title="地方频道",上虞综合
+http://l.cztvcloud.com/channels/lantian/SXshangyu1/720p.m3u8
+#EXTINF:-1 group-title="地方频道",云和综合
+http://l.cztvcloud.com/channels/lantian/SXyunhe1/720p.m3u8

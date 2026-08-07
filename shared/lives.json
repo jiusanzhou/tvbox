@@ -1,7 +1,42 @@
 [
   {
-    "name": "央视卫视",
+    "name": "📡 央视卫视",
     "type": 0,
     "url": "https://raw.githubusercontent.com/fanmingming/live/main/tv/m3u/global.m3u"
+  },
+  {
+    "name": "🌍 全球直播",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/Global.m3u"
+  },
+  {
+    "name": "📺 IPTV 综合",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/IPTV.m3u"
+  },
+  {
+    "name": "🇭🇰 港澳台",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/GNTV.m3u"
+  },
+  {
+    "name": "🏞 湖南本地",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/Hunan.txt"
+  },
+  {
+    "name": "📻 广播电台",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/Radio.m3u"
+  },
+  {
+    "name": "🎙 央视备用 (CUTV)",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/CUTV.txt"
+  },
+  {
+    "name": "🔞 Adult",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/Adult.m3u"
   }
 ]

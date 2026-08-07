@@ -1,0 +1,58 @@
+name: Sync Lives
+
+# 每天 06:30 (UTC) = 14:30 Asia/Shanghai, 从 YueChan/Live 拉最新直播源
+on:
+  schedule:
+    - cron: '30 6 * * *'
+  workflow_dispatch:
+    inputs:
+      only:
+        description: '只同步指定文件 (逗号分隔, 如 Global.m3u,IPTV.m3u), 留空同步全部'
+        required: false
+        default: ''
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sync lives from upstream
+        id: sync
+        run: |
+          if [ -n "${{ inputs.only }}" ]; then
+            node scripts/sync-lives.mjs --only="${{ inputs.only }}"
+          else
+            node scripts/sync-lives.mjs
+          fi
+
+      - name: Rebuild tvbox.json (会顺便 revalidate)
+        run: node scripts/build.mjs
+
+      - name: Mirror to docs/
+        run: |
+          mkdir -p docs/shared/lives
+          cp -f shared/lives/* docs/shared/lives/ 2>/dev/null || true
+          cp -f tvbox.json docs/tvbox.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add shared/lives docs/shared/lives tvbox.json docs/tvbox.json
+          if git diff --cached --quiet; then
+            echo "无变化, 跳过 commit"
+          else
+            SUMMARY="${{ steps.sync.outputs.summary }}"
+            if [ -z "$SUMMARY" ]; then
+              SUMMARY="sync lives from YueChan/Live"
+            fi
+            git commit -m "chore(lives): sync from upstream [skip ci]" -m "$SUMMARY"
+            git push
+          fi

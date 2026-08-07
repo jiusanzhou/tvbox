@@ -25,6 +25,30 @@ https://zoe.im/tvbox/tvbox.json
 | `aiyifan_api` | 🎬 爱壹帆 | API 型 spider | 全签名 + CDN warmup + 分页/选集 |
 | `ddys` | 🎞 低端影视 | 静态镜像 spider | 数据源 `ddys.lat/data/*.json`，无签名/无验证码，m3u8 直播 |
 
+## 📡 直播源
+
+`shared/lives.json` 内置 8 组直播源，客户端里可切换：
+
+| 名字 | 上游 | 说明 |
+|---|---|---|
+| 📡 央视卫视 | fanmingming/live | 央视 + 卫视 |
+| 🌍 全球直播 | YueChan/Live Global.m3u | 全球主流 |
+| 📺 IPTV 综合 | YueChan/Live IPTV.m3u | 综合 IPTV |
+| 🇭🇰 港澳台 | YueChan/Live GNTV.m3u | 港澳台 |
+| 🏞 湖南本地 | YueChan/Live Hunan.txt | 湖南 |
+| 📻 广播电台 | YueChan/Live Radio.m3u | 电台 |
+| 🎙 央视备用 | YueChan/Live CUTV.txt | 央视备用 |
+| 🔞 Adult | 历史恢复 (35 频道) | 上游 2025 年已删除，本仓库自维护 |
+
+YueChan 上游的 6 个源由 `.github/workflows/sync-lives.yml` **每天 UTC 06:30**（北京 14:30）自动同步，落地到 `shared/lives/` 并镜像到 GH Pages (`zoe.im/tvbox/shared/lives/*`)。
+
+手动同步：
+
+```bash
+pnpm sync:lives:dry   # 只看 diff, 不写盘
+pnpm sync:lives       # 拉最新
+```
+
 ## 🛠️ 本地开发
 
 ```bash

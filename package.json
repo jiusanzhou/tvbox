@@ -12,6 +12,8 @@
     "smoke": "node --experimental-loader ./scripts/loader.mjs scripts/smoke.mjs",
     "smoke:ci": "node --experimental-loader ./scripts/loader.mjs scripts/smoke.mjs --json=smoke.json",
     "sync": "node scripts/sync-from-ext.mjs",
+    "sync:lives": "node scripts/sync-lives.mjs",
+    "sync:lives:dry": "node scripts/sync-lives.mjs --dry",
     "serve": "python3 -m http.server 8899"
   }
 }

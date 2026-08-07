@@ -46,12 +46,18 @@ jobs:
             [ -f "$d/spider.js" ] && cp -f "$d/spider.js" "docs/sites/$name/spider.js"
             [ -f "$d/meta.json" ] && cp -f "$d/meta.json" "docs/sites/$name/meta.json"
           done
+          # 镜像直播源文件 (m3u/txt), 让订阅走 zoe.im 域名
+          if [ -d shared/lives ]; then
+            mkdir -p docs/shared/lives
+            cp -f shared/lives/* docs/shared/lives/ 2>/dev/null || true
+          fi
 
       - name: Commit tvbox.json if changed
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # tvbox.json + docs 一起 add
           # tvbox.json + docs 一起 add
           git add tvbox.json docs/ 2>/dev/null || true
           if git diff --cached --quiet; then
