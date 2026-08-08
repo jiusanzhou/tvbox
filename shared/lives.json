@@ -1,5 +1,10 @@
 [
   {
+    "name": "🇨🇳 央视卫视地方 (vbskycn)",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/vbskycn-iptv4.m3u"
+  },
+  {
     "name": "🌍 全球直播",
     "type": 0,
     "url": "https://zoe.im/tvbox/shared/lives/Global.m3u"
@@ -30,7 +35,7 @@
     "url": "https://zoe.im/tvbox/shared/lives/CUTV.txt"
   },
   {
-    "name": "🎬 CZ/SK (HBO/Cinemax)",
+    "name": "🎬 欧洲 (HBO/Cinemax/AMC)",
     "type": 0,
     "url": "https://zoe.im/tvbox/shared/lives/CZ-SK.m3u"
   },

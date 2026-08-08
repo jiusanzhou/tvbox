@@ -31,23 +31,26 @@ const ONLY = args.only ? String(args.only).split(',') : null;
 // 上游源清单
 // upstream: 优先 jsdelivr(有 CDN 缓存, 快), fallback raw
 const SOURCES = [
+  // YueChan/Live
   { file: 'Global.m3u', repo: 'YueChan/Live', path: 'Global.m3u' },
   { file: 'IPTV.m3u',   repo: 'YueChan/Live', path: 'IPTV.m3u'   },
   { file: 'GNTV.m3u',   repo: 'YueChan/Live', path: 'GNTV.m3u'   },
   { file: 'Hunan.txt',  repo: 'YueChan/Live', path: 'Hunan.txt'  },
   { file: 'CUTV.txt',   repo: 'YueChan/Live', path: 'CUTV.txt'   },
   { file: 'Radio.m3u',  repo: 'YueChan/Live', path: 'Radio.m3u'  },
-  // Adult.m3u 上游已删, 本仓库自维护, 不同步
+  // vbskycn/iptv — 国内综合直播源 (400+ 频道, 央视/卫视/地方/电影/纪录)
+  { file: 'vbskycn-iptv4.m3u', repo: 'vbskycn/iptv', path: 'tv/iptv4.m3u', branch: 'master' },
+  // Adult.m3u / CZ-SK.m3u 上游已删或本仓库自维护, 不同步
 ];
 
 function sha8(buf) {
   return crypto.createHash('sha256').update(buf).digest('hex').slice(0, 8);
 }
 
-async function fetchWithFallback(repo, filePath) {
+async function fetchWithFallback(repo, filePath, branch = 'main') {
   const urls = [
-    `https://cdn.jsdelivr.net/gh/${repo}@main/${filePath}`,
-    `https://raw.githubusercontent.com/${repo}/main/${filePath}`,
+    `https://cdn.jsdelivr.net/gh/${repo}@${branch}/${filePath}`,
+    `https://raw.githubusercontent.com/${repo}/${branch}/${filePath}`,
   ];
   const errors = [];
   for (const url of urls) {
@@ -81,7 +84,7 @@ for (const src of SOURCES) {
   const oldHash = oldBuf ? sha8(oldBuf) : '(new)';
 
   try {
-    const { url, text } = await fetchWithFallback(src.repo, src.path);
+    const { url, text } = await fetchWithFallback(src.repo, src.path, src.branch);
     const newBuf = Buffer.from(text, 'utf-8');
     const newHash = sha8(newBuf);
 

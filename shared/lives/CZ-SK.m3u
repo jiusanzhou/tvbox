@@ -1,29 +1,249 @@
 #EXTM3U
-#EXTINF:-1 group-title="🎬 电影",AMC
-http://88.212.7.11/live/amc_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="🎬 电影",Cinemax
-http://88.212.7.11/live/cinemax_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="🎬 电影",Cinemax 2
-http://88.212.7.11/live/cinemax2_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="🎬 电影",FilmBox
-http://88.212.7.11/live/filmbox_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Amc
+http://88.212.15.19/live/amc_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Axn
+http://88.212.15.19/live/axn_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Epic Drama
+http://88.212.15.19/live/epic_drama_atk_tv/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Film Boxextra
+http://88.212.15.19/live/film_boxextra_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Film Boxpremium
+http://88.212.15.19/live/film_boxpremium_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Film Cafe
+http://88.212.15.19/live/film_cafe/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Film Plus
+http://88.212.15.19/live/film_plus_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Film Plus
+http://88.212.15.19/live/film_plus_hun_atk/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Filmbox
+http://88.212.15.19/live/filmbox_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Filmbox Extra Hd
+http://88.212.15.19/live/test_filmbox_extra_hd_hun_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Filmbox Family
+http://88.212.15.19/live/test_filmbox_family_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Filmbox Family
+http://88.212.15.19/live/test_filmbox_family_hun_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Filmbox Plus
+http://88.212.15.19/live/test_filmbox_plus_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Filmbox Plus
+http://88.212.15.19/live/test_filmbox_plus_hun_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Kino Barrandov Sd50
+http://88.212.15.19/live/kino_barrandov_sd_hevc50/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Mozi
+http://88.212.15.19/live/mozi/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Mozi Plusz
+http://88.212.15.19/live/mozi_plusz/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Moziklub
+http://88.212.15.19/live/moziklub_atk/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Moziverzum
+http://88.212.15.19/live/moziverzum/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Sorozatgary
+http://88.212.15.19/live/test_sorozat_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Sorozatklub
+http://88.212.15.19/live/sorozatklub_atk/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Story 4
+http://88.212.15.19/live/test_story_4_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Viasat Film
+http://88.212.15.19/live/viasat_film/index.m3u8
+#EXTINF:-1 group-title="🎬 电影",Viasat History
+http://88.212.15.19/live/viasat_history_atk_tv/playlist.m3u8
 #EXTINF:-1 group-title="🎬 电影",HBO
 http://88.212.7.11/live/hbo_hd_hevc/playlist.m3u8
 #EXTINF:-1 group-title="🎬 电影",HBO 2
 http://88.212.7.11/live/hbo2_hd_hevc/playlist.m3u8
 #EXTINF:-1 group-title="🎬 电影",HBO 3
 http://88.212.7.11/live/hbo3_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="📺 综合",ČT1
-http://88.212.7.11/live/ct1_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="📺 综合",ČT2
-http://88.212.7.11/live/ct2_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="📺 综合",Doma
-http://88.212.7.11/live/doma_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="📺 综合",WAU
-http://88.212.7.11/live/wau_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Cinemax
+http://88.212.7.11/live/cinemax_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Cinemax 2
+http://88.212.7.11/live/cinemax2_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Barrandov
+http://88.212.15.19/live/barrandov_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",ČT1
+http://88.212.15.19/live/ct1_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",ČT2
+http://88.212.15.19/live/ct2_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",ČT24
+http://88.212.15.19/live/test_ct24_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",ČT Art
+http://88.212.15.19/live/ct_art_avc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima
+http://88.212.15.19/live/prima_avc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Cool
+http://88.212.15.19/live/prima_cool_avc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Cool Cz
+http://88.212.15.19/live/prima_cool_cz_avc/index.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Krimi
+http://88.212.15.19/live/prima_krimi_avc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Love
+http://88.212.15.19/live/prima_love_avc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Love Cz
+http://88.212.15.19/live/prima_love_cz_avc/index.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Show
+http://88.212.15.19/live/prima_show_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Show
+http://88.212.15.19/live/test_prima_show_hevc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Star
+http://88.212.15.19/live/prima_star_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Star
+http://88.212.15.19/live/test_prima_star_hevc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Prima Zoom
+http://88.212.15.19/live/prima_zoom_avc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Seznam
+http://88.212.15.19/live/seznam_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇨🇿 捷克",Seznam
+http://88.212.15.19/live/test_seznam_hevc_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇸🇰 斯洛伐克",Dikh
+http://88.212.15.19/live/dikh/index.m3u8
+#EXTINF:-1 group-title="🇸🇰 斯洛伐克",Dvojka
+http://88.212.15.19/live/dvojka_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇸🇰 斯洛伐克",Jednotka
+http://88.212.15.19/live/jednotka_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇸🇰 斯洛伐克",Jocky
+http://88.212.15.19/live/jocky/index.m3u8
+#EXTINF:-1 group-title="🇸🇰 斯洛伐克",Svoboda
+http://88.212.15.19/live/svoboda/index.m3u8
+#EXTINF:-1 group-title="🇸🇰 斯洛伐克",Trojka
+http://88.212.15.19/live/trojka_25p/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Cai
+http://88.212.15.19/live/test_cai_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Duna
+http://88.212.15.19/live/duna_hun/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Duna World
+http://88.212.15.19/live/duna_world_hun/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Fb Premiumgary
+http://88.212.15.19/live/fb_premium_hungary/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Fem3tv
+http://88.212.15.19/live/fem3_atktv/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Izaura
+http://88.212.15.19/live/izaura/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Lichi Tv
+http://88.212.15.19/live/lichi_tv_atk_tv/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",M2
+http://88.212.15.19/live/m2_hun/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",M 1gary
+http://88.212.15.19/live/test_m_1_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",M 5
+http://88.212.15.19/live/test_m_5_hun_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Rtl2gary
+http://88.212.15.19/live/test_rtl2_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Rtl Klubgary
+http://88.212.15.19/live/test_rtl_klub_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Rtl Otthon
+http://88.212.15.19/live/rtl_otthon_atk/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Rtl Plusgary
+http://88.212.15.19/live/test_rtl_plus_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Slager Tvgary
+http://88.212.15.19/live/test_slager_tv_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Super Tv2gary
+http://88.212.15.19/live/test_super_tv2_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Tv2 Comedy
+http://88.212.15.19/live/tv2_comedy/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Tv2 Kids
+http://88.212.15.19/live/tv2_kids/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Tv 2gary
+http://88.212.15.19/live/test_tv_2_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Tv 4
+http://88.212.15.19/live/test_tv_4_hun_atk_1200/playlist.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Viasat2
+http://88.212.15.19/live/viasat2/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Viasat3
+http://88.212.15.19/live/viasat3/index.m3u8
+#EXTINF:-1 group-title="🇭🇺 匈牙利",Viasat6
+http://88.212.15.19/live/viasat6/index.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Bbc Eartch
+http://88.212.15.19/live/test_bbc_eartch_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Bbc First
+http://88.212.15.19/live/bbc_first/index.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Fishingting
+http://88.212.15.19/live/test_fishing_hunting/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",H2
+http://88.212.15.19/live/test_h2/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",History
+http://88.212.15.19/live/history_hun/index.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Home
+http://88.212.15.19/live/test_home_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Lifetv
+http://88.212.15.19/live/lifetv/index.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Ngc
+http://88.212.15.19/live/ngc_hun/index.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Ngw
+http://88.212.15.19/live/ngw_hun/index.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Spektrum
+http://88.212.15.19/live/spektrum_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Spektrum Home
+http://88.212.15.19/live/spektrum_home_hun/index.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Viasat Explore
+http://88.212.15.19/live/viasat_explore_atk_tv/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Viasat Nature
+http://88.212.15.19/live/viasat_nature_atk_tv/playlist.m3u8
 #EXTINF:-1 group-title="🌐 纪实",Discovery
 http://88.212.7.11/live/discovery_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="🌐 纪实",Spektrum
-http://88.212.7.11/live/spektrum_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="⚽ 体育",Sport 1
-http://88.212.7.11/live/sport1_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="📰 新闻",Cnn Pirma News
+http://88.212.15.19/live/test_cnn_pirma_news/playlist.m3u8
+#EXTINF:-1 group-title="📰 新闻",Orf Zwei Tizen
+http://88.212.15.19/live/test_orf_zwei_tizen/playlist.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Arenasport
+http://88.212.15.19/live/test_arenasport/playlist.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Arenasport Dva
+http://88.212.15.19/live/test_arenasport_dva/playlist.m3u8
+#EXTINF:-1 group-title="⚽ 体育",ČT Sport
+http://88.212.15.19/live/ctsport_25p/playlist.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Real Madrid Tv
+http://88.212.15.19/live/real_madrid_tv/index.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Rtvs Sport
+http://88.212.15.19/live/rtvs_sport_hevc/playlist.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Spiler1
+http://88.212.15.19/live/spiler1/index.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Spiler2
+http://88.212.15.19/live/spiler2/index.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Sport1
+http://88.212.15.19/live/sport1_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Sport2
+http://88.212.15.19/live/sport2_hun/index.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Sport 2
+http://88.212.15.19/live/test_sport_2/playlist.m3u8
+#EXTINF:-1 group-title="👶 儿童",Disney
+http://88.212.15.19/live/test_disney/playlist.m3u8
+#EXTINF:-1 group-title="👶 儿童",Disney Channel
+http://88.212.15.19/live/disney_channel_hun/index.m3u8
+#EXTINF:-1 group-title="👶 儿童",Kolyokklub
+http://88.212.15.19/live/kolyokklub_atk/index.m3u8
+#EXTINF:-1 group-title="👶 儿童",Minimax
+http://88.212.15.19/live/minimax_hun/index.m3u8
+#EXTINF:-1 group-title="👶 儿童",Nick Junior
+http://88.212.15.19/live/nick_junior_hun/index.m3u8
+#EXTINF:-1 group-title="👶 儿童",Nickelodeon
+http://88.212.15.19/live/nickelodeon_hevc/playlist.m3u8
+#EXTINF:-1 group-title="👶 儿童",Nickelodeon
+http://88.212.15.19/live/test_nickelodeon_hevc_25p/playlist.m3u8
+#EXTINF:-1 group-title="👶 儿童",Nickelodeon Hu
+http://88.212.15.19/live/test_nickelodeon_hu_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="👶 儿童",Nicktoons
+http://88.212.15.19/live/test_nicktoons/playlist.m3u8
+#EXTINF:-1 group-title="👶 儿童",Nicktoonsgary
+http://88.212.15.19/live/nicktoons_hungary/index.m3u8
+#EXTINF:-1 group-title="🎵 音乐",Mb Classic
+http://88.212.15.19/live/mb_classic/index.m3u8
+#EXTINF:-1 group-title="🎵 音乐",Mb Dance
+http://88.212.15.19/live/mb_dance/index.m3u8
+#EXTINF:-1 group-title="🎵 音乐",Mb Hits
+http://88.212.15.19/live/mb_hits/index.m3u8
+#EXTINF:-1 group-title="🎵 音乐",Mb Sexy
+http://88.212.15.19/live/mb_sexy/index.m3u8
+#EXTINF:-1 group-title="🎵 音乐",Muzsikagary
+http://88.212.15.19/live/test_muzsika_hungary_1200_atk/playlist.m3u8
+#EXTINF:-1 group-title="🎵 音乐",Ozone
+http://88.212.15.19/live/ozone/index.m3u8
+#EXTINF:-1 group-title="🎵 音乐",Zenebutik
+http://88.212.15.19/live/zenebutik/index.m3u8
+#EXTINF:-1 group-title="📺 其他",Black
+http://88.212.15.19/live/test_black/playlist.m3u8
+#EXTINF:-1 group-title="📺 其他",Film4
+http://88.212.15.19/live/film4_hun/index.m3u8
+#EXTINF:-1 group-title="📺 其他",Prime
+http://88.212.15.19/live/prime/index.m3u8
+#EXTINF:-1 group-title="📺 其他",Tv Romana Web Player
+http://88.212.15.19/live/test_tv_romana_web_player/playlist.m3u8
+#EXTINF:-1 group-title="📺 其他",White
+http://88.212.15.19/live/test_white/playlist.m3u8
