@@ -1,0 +1,43 @@
+name: Verify Lives
+
+# 每天 UTC 05:00 (北京 13:00) 探活自维护 m3u, 死链/加密流自动移除
+on:
+  schedule:
+    - cron: '0 5 * * *'
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Verify & fix self-maintained m3u
+        run: node scripts/verify-lives.mjs --fix || true
+
+      - name: Rebuild tvbox.json
+        run: node scripts/build.mjs
+
+      - name: Mirror to docs/
+        run: |
+          mkdir -p docs/shared/lives
+          cp -f shared/lives/* docs/shared/lives/ 2>/dev/null || true
+          cp -f tvbox.json docs/tvbox.json
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add shared/lives docs/shared/lives tvbox.json docs/tvbox.json
+          if git diff --cached --quiet; then
+            echo "无变化"
+          else
+            git commit -m "chore(lives): verify — 自动移除死链/加密流 [skip ci]"
+            git push
+          fi
