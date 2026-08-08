@@ -30,6 +30,11 @@
     "url": "https://zoe.im/tvbox/shared/lives/CUTV.txt"
   },
   {
+    "name": "🎬 CZ/SK (HBO/Cinemax)",
+    "type": 0,
+    "url": "https://zoe.im/tvbox/shared/lives/CZ-SK.m3u"
+  },
+  {
     "name": "🔞 Adult",
     "type": 0,
     "url": "https://zoe.im/tvbox/shared/lives/Adult.m3u"
