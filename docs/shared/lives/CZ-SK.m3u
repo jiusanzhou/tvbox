@@ -1,0 +1,29 @@
+#EXTM3U
+#EXTINF:-1 group-title="🎬 电影",AMC
+http://88.212.7.11/live/amc_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Cinemax
+http://88.212.7.11/live/cinemax_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",Cinemax 2
+http://88.212.7.11/live/cinemax2_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",FilmBox
+http://88.212.7.11/live/filmbox_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",HBO
+http://88.212.7.11/live/hbo_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",HBO 2
+http://88.212.7.11/live/hbo2_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🎬 电影",HBO 3
+http://88.212.7.11/live/hbo3_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="📺 综合",ČT1
+http://88.212.7.11/live/ct1_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="📺 综合",ČT2
+http://88.212.7.11/live/ct2_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="📺 综合",Doma
+http://88.212.7.11/live/doma_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="📺 综合",WAU
+http://88.212.7.11/live/wau_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Discovery
+http://88.212.7.11/live/discovery_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="🌐 纪实",Spektrum
+http://88.212.7.11/live/spektrum_hd_hevc/playlist.m3u8
+#EXTINF:-1 group-title="⚽ 体育",Sport 1
+http://88.212.7.11/live/sport1_hd_hevc/playlist.m3u8
