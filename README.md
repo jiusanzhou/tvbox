@@ -27,7 +27,7 @@ https://zoe.im/tvbox/tvbox.json
 
 ## 📡 直播源
 
-`shared/lives.json` 内置 7 组直播源，客户端里可切换：
+`shared/lives.json` 内置多组直播源，客户端里可切换：
 
 | 名字 | 上游 | 说明 |
 |---|---|---|
@@ -37,7 +37,6 @@ https://zoe.im/tvbox/tvbox.json
 | 🏞 湖南本地 | YueChan/Live Hunan.txt | 湖南 |
 | 📻 广播电台 | YueChan/Live Radio.m3u | 电台 |
 | 🎙 央视备用 | YueChan/Live CUTV.txt | 央视备用 |
-| 🔞 Adult | 历史恢复 (35 频道) | 上游 2025 年已删除，本仓库自维护 |
 
 YueChan 上游的 6 个源由 `.github/workflows/sync-lives.yml` **每天 UTC 06:30**（北京 14:30）自动同步，落地到 `shared/lives/` 并镜像到 GH Pages (`zoe.im/tvbox/shared/lives/*`)。
 

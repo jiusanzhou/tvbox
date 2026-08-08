@@ -7,7 +7,7 @@
 //   node scripts/sync-lives.mjs --only=Global.m3u,IPTV.m3u
 //
 // 规则:
-//   - Adult.m3u 是"历史恢复文件", 上游已删除, 本仓库自己维护, 不覆盖
+//   - 本仓库自维护的文件 (上游已删) 不在同步列表里, 不会被覆盖
 //   - 上游源默认走 jsdelivr, 拉不到再 fallback raw.githubusercontent.com
 
 import fs from 'node:fs';
@@ -37,7 +37,7 @@ const SOURCES = [
   { file: 'Hunan.txt',  repo: 'YueChan/Live', path: 'Hunan.txt'  },
   { file: 'CUTV.txt',   repo: 'YueChan/Live', path: 'CUTV.txt'   },
   { file: 'Radio.m3u',  repo: 'YueChan/Live', path: 'Radio.m3u'  },
-  // Adult.m3u 上游已删, 本仓库自己维护(2025-09-15 前的 35 频道版), 不同步
+  // Adult.m3u 上游已删, 本仓库自维护, 不同步
 ];
 
 function sha8(buf) {
@@ -116,9 +116,7 @@ const adultLocal = path.join(LIVES_DIR, 'Adult.m3u');
 if (fs.existsSync(adultLocal)) {
   const buf = fs.readFileSync(adultLocal);
   const ch = (buf.toString().match(/^#EXTINF/gm) || []).length;
-  console.log(`\n📌 Adult.m3u — 本仓库自维护 (${buf.length}B, ${ch} channels), 上游已删除, 不同步`);
-} else {
-  console.warn(`\n⚠️  Adult.m3u 不存在, 请手动放到 ${adultLocal}`);
+  console.log(`\n📌 Adult.m3u — 本仓库自维护 (${buf.length}B, ${ch} channels), 不同步`);
 }
 
 console.log(`\n📊 同步完成: ${ok}/${SOURCES.length} 成功  (变更 ${changed}, 无变化 ${skipped}, 失败 ${failed})`);
