@@ -3,8 +3,8 @@
     "repo": "jiusanzhou/tvbox",
     "branch": "main",
     "base": "pages",
-    "commit": "f257abd",
-    "generated_at": "2026-08-17T05:24:45.146Z",
+    "commit": "f99bbfc",
+    "generated_at": "2026-08-17T07:32:39.568Z",
     "site_count": 8,
     "sites": [
       {
@@ -15,7 +15,7 @@
           "signed",
           "proxied"
         ],
-        "updated_at": "2026-08-17T05:24:39.680Z"
+        "updated_at": "2026-08-17T07:32:29.453Z"
       },
       {
         "key": "bfzy",
@@ -25,13 +25,13 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-17T05:24:39.680Z"
+        "updated_at": "2026-08-17T07:32:29.454Z"
       },
       {
         "key": "ddys",
         "hash": "6e848abf",
         "tags": [],
-        "updated_at": "2026-08-17T05:24:39.680Z"
+        "updated_at": "2026-08-17T07:32:29.454Z"
       },
       {
         "key": "ffzy",
@@ -41,7 +41,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-17T05:24:39.681Z"
+        "updated_at": "2026-08-17T07:32:29.454Z"
       },
       {
         "key": "haohua",
@@ -51,7 +51,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-17T05:24:39.681Z"
+        "updated_at": "2026-08-17T07:32:29.454Z"
       },
       {
         "key": "hongniu",
@@ -61,7 +61,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-17T05:24:39.681Z"
+        "updated_at": "2026-08-17T07:32:29.454Z"
       },
       {
         "key": "liangzi",
@@ -71,7 +71,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-17T05:24:39.681Z"
+        "updated_at": "2026-08-17T07:32:29.454Z"
       },
       {
         "key": "yinghua",
@@ -81,7 +81,7 @@
           "maccms"
         ],
         "type": 1,
-        "updated_at": "2026-08-17T05:24:39.681Z"
+        "updated_at": "2026-08-17T07:32:29.454Z"
       }
     ]
   },
@@ -92,7 +92,7 @@
       "key": "aiyifan_api",
       "name": "🌏 爱壹帆 (海外)",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=f5a26a1a&t=1786944285140",
+      "api": "https://zoe.im/tvbox/sites/aiyifan/spider.js?v=f5a26a1a&t=1786951959561",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1,
@@ -118,7 +118,7 @@
       "key": "ddys",
       "name": "🎞 低端影视",
       "type": 3,
-      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=6e848abf&t=1786944285141",
+      "api": "https://zoe.im/tvbox/sites/ddys/spider.js?v=6e848abf&t=1786951959562",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 0,
