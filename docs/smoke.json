@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-17T06:45:17.124Z",
+  "generated_at": "2026-08-17T12:35:11.648Z",
   "results": [
     {
       "key": "aiyifan",
@@ -26,7 +26,7 @@
         "hosts": {
           "https://ddys.lat/data/manifest.json": {
             "code": 200,
-            "ms": 74,
+            "ms": 306,
             "ok": true
           },
           "https://ddys.lat/data/list.json": {
