@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-10-09T22:10:59.722Z",
+  "generated_at": "2026-10-10T04:07:04.280Z",
   "results": [
     {
       "key": "aiyifan",
@@ -10,7 +10,7 @@
         "hosts": {
           "https://www.aiyifan.tv/": {
             "code": 200,
-            "ms": 530,
+            "ms": 705,
             "ok": true
           }
         }
@@ -26,12 +26,12 @@
         "hosts": {
           "https://ddys.lat/data/manifest.json": {
             "code": 200,
-            "ms": 630,
+            "ms": 640,
             "ok": true
           },
           "https://ddys.lat/data/list.json": {
             "code": 200,
-            "ms": 504,
+            "ms": 127,
             "ok": true
           }
         }
