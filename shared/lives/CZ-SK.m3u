@@ -1,6 +1,4 @@
 #EXTM3U
-#EXTINF:-1 group-title="🎬 电影",Film Plus
-http://88.212.15.19/live/film_plus_hun_atk/index.m3u8
 #EXTINF:-1 group-title="🎬 电影",HBO
 http://88.212.7.11/live/test_hbo_hd_hevc/playlist.m3u8
 #EXTINF:-1 group-title="🎬 电影",HBO 2
@@ -11,33 +9,5 @@ http://88.212.7.11/live/test_hbo3_hd_hevc/playlist.m3u8
 http://88.212.7.11/live/test_cinemax_hd_hevc/playlist.m3u8
 #EXTINF:-1 group-title="🎬 电影",Cinemax 2
 http://88.212.7.11/live/test_cinemax2_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="🇨🇿 捷克",Prima Cool
-http://88.212.15.19/live/prima_cool_avc_25p/playlist.m3u8
-#EXTINF:-1 group-title="🇸🇰 斯洛伐克",Jednotka
-http://88.212.15.19/live/test_jednotka_25p/playlist.m3u8
-#EXTINF:-1 group-title="🇭🇺 匈牙利",Duna World
-http://88.212.15.19/live/duna_world_hun/index.m3u8
-#EXTINF:-1 group-title="🇭🇺 匈牙利",M2
-http://88.212.15.19/live/m2_hun/index.m3u8
-#EXTINF:-1 group-title="🇭🇺 匈牙利",M 5
-http://88.212.15.19/live/test_m_5_hun_atk_1200/playlist.m3u8
-#EXTINF:-1 group-title="🇭🇺 匈牙利",Viasat3
-http://88.212.15.19/live/viasat3/index.m3u8
-#EXTINF:-1 group-title="🌐 纪实",Home
-http://88.212.15.19/live/test_home_hevc/playlist.m3u8
-#EXTINF:-1 group-title="🌐 纪实",Ngc
-http://88.212.15.19/live/ngc_hun/index.m3u8
 #EXTINF:-1 group-title="🌐 纪实",Discovery
 http://88.212.7.11/live/test_discovery_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="📰 新闻",Orf Zwei Tizen
-http://88.212.15.19/live/test_orf_zwei_tizen/playlist.m3u8
-#EXTINF:-1 group-title="👶 儿童",Kolyokklub
-http://88.212.15.19/live/kolyokklub_atk/index.m3u8
-#EXTINF:-1 group-title="🎵 音乐",Mb Sexy
-http://88.212.15.19/live/mb_sexy/index.m3u8
-#EXTINF:-1 group-title="🎵 音乐",Muzsikagary
-http://88.212.15.19/live/test_muzsika_hungary_1200_atk/playlist.m3u8
-#EXTINF:-1 group-title="🎵 音乐",Zenebutik
-http://88.212.15.19/live/zenebutik/index.m3u8
-#EXTINF:-1 group-title="📺 其他",Tv Romana Web Player
-http://88.212.15.19/live/test_tv_romana_web_player/playlist.m3u8
