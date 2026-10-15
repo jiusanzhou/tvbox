@@ -13,6 +13,8 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import dns from 'node:dns/promises';
+import net from 'node:net';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -35,7 +37,37 @@ if (typeof globalThis.req === 'undefined') globalThis.req = () => ({ code: 0, co
 
 const CONTRACT = ['init', 'home', 'homeVod', 'category', 'detail', 'play', 'search', 'isVideoFormat', 'manualVideoCheck'];
 
+// 拒绝内网/元数据地址, 防止 SSRF (探测内网或云 metadata 服务如 169.254.169.254)
+function isPrivateIp(ip) {
+  if (net.isIPv4(ip)) {
+    const p = ip.split('.').map(Number);
+    return p[0] === 10 || p[0] === 127 || p[0] === 0
+      || (p[0] === 172 && p[1] >= 16 && p[1] <= 31)
+      || (p[0] === 192 && p[1] === 168)
+      || (p[0] === 169 && p[1] === 254);
+  }
+  if (net.isIPv6(ip)) {
+    const lo = ip.toLowerCase();
+    return lo === '::1' || lo.startsWith('fc') || lo.startsWith('fd') || lo.startsWith('fe8')
+      || lo.startsWith('fe9') || lo.startsWith('fea') || lo.startsWith('feb') || lo.includes('::ffff:127.');
+  }
+  return true; // 未知格式, 保守拒绝
+}
+
+async function isUrlSafe(url) {
+  try {
+    const u = new URL(url);
+    if (!/^https?:$/.test(u.protocol)) return false;
+    const host = u.hostname;
+    const addrs = net.isIP(host) ? [host] : (await dns.lookup(host, { all: true })).map(a => a.address);
+    return addrs.length > 0 && addrs.every(a => !isPrivateIp(a));
+  } catch {
+    return false;
+  }
+}
+
 async function head(url) {
+  if (!(await isUrlSafe(url))) return { code: 0, error: 'blocked: unsafe/internal URL' };
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
