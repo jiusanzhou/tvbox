@@ -7,7 +7,5 @@ http://88.212.7.11/live/test_hbo2_hd_hevc/playlist.m3u8
 http://88.212.7.11/live/test_hbo3_hd_hevc/playlist.m3u8
 #EXTINF:-1 group-title="🎬 电影",Cinemax
 http://88.212.7.11/live/test_cinemax_hd_hevc/playlist.m3u8
-#EXTINF:-1 group-title="🎬 电影",Cinemax 2
-http://88.212.7.11/live/test_cinemax2_hd_hevc/playlist.m3u8
 #EXTINF:-1 group-title="🌐 纪实",Discovery
 http://88.212.7.11/live/test_discovery_hd_hevc/playlist.m3u8
